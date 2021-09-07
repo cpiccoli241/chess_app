@@ -9,9 +9,8 @@ public abstract class Piece {
      * (duh)
      */
     private int pieceID;
-    private int[] direction;
     private Color col;
-    public Piece(int id, int[] direction, Color col){
+    public Piece(int id, Color col){
         pieceID = id;
         /**
          * Represents 3 axis of movement
@@ -19,16 +18,7 @@ public abstract class Piece {
          * 1 left right
          * 2 diagonal
          */
-        this.direction = direction;
         this.col = col;
-    }
-    /**
-     * Gets the Directions the Piece
-     * Can Move
-     * @return direction
-     */
-    public int[] getDirection() {
-        return direction;
     }
 
     /**
