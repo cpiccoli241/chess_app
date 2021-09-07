@@ -13,6 +13,12 @@ public abstract class Piece {
     private Color col;
     public Piece(int id, int[] direction, Color col){
         pieceID = id;
+        /**
+         * Represents 3 axis of movement
+         * 0 forwards/backwards
+         * 1 left right
+         * 2 diagonal
+         */
         this.direction = direction;
         this.col = col;
     }
@@ -41,8 +47,8 @@ public abstract class Piece {
     }
     /**
      * Gets the possible moves for the piece
-     * in a list form
-     * @return List
+     * in a array form
+     * @return array
      */
-    public abstract List getCandidateMoves();
+    public abstract List<Move> getCandidateMoves();
 }
