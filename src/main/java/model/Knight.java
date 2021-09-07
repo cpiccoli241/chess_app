@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Knight extends Piece {
+    // I made it static cause every horse can move in the same directions
     public static List candidateMoves = Arrays.asList(new Move[]{
                                                         new Move(new int[]{-1,2,0}),
                                                         new Move(new int[]{1,2,0}),
