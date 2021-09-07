@@ -1,4 +1,5 @@
 package model;
+import java.lang.StringBuilder;
 
 public class ChessBoardRep extends Board {
     public ChessBoardRep() {
@@ -48,20 +49,31 @@ public class ChessBoardRep extends Board {
     /**
      * Returns a string representation of the object
      * There is no Guarantee that 2 boards with the same
-     * toString are equal
+     * perspective are equal
      * @return A string representing the locations of all the pieces from blacks perspective
      */
-    @Override
-    public String toString(){
-        String output = "- - - - - - - - - - - - - - - - -\n";
+    public String BlackPerspective(){
+        String output = "| H | G | F | E | D | C | B | A |\n" +
+                        "- - - - - - - - - - - - - - - - - - -\n";
+        Integer counter = 1;
         for (int[] row: getBoardRep()) {
             for (int square: row) {
                 output = output + "| " + getPiece(square).toString() + " ";
             }
-            output = output +"|\n";
-
+            output = output + "|| " + counter.toString() +" |\n";
+            counter++;
         }
-        output = output+"- - - - - - - - - - - - - - - - -\n";
+        output = output+"- - - - - - - - - - - - - - - - - - -\n";
         return output;
+    }
+
+    /**
+     * Returns a string representation of the object
+     * There is no Guarantee that 2 boards with the same
+     * perspective are equal
+     * @return A string representing the locations of all the pieces from blacks perspective
+     */
+    public String WhitePerspective(){
+        return new StringBuilder().append(BlackPerspective()).reverse().toString()+"\n";
     }
 }
