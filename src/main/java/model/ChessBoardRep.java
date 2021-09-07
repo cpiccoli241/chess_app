@@ -2,6 +2,7 @@ package model;
 import java.lang.StringBuilder;
 
 public class ChessBoardRep extends Board {
+    private final int BOARD_LENGTH = 8;
     public ChessBoardRep() {
         setBoardRep(makeBoardInit());
         // adds the default emptyPiece
@@ -32,7 +33,7 @@ public class ChessBoardRep extends Board {
     private int[][] makeBoardInit(){
         // note that according to oracle
         // all the values are defaulted to 0
-        int[][] bdrep = new int[8][8];
+        int[][] bdrep = new int[BOARD_LENGTH][BOARD_LENGTH];
         // add the values of the piece IDS
         bdrep[0] = new int[]{1, 2, 3, 4, 5, 6, 7, 8};
         bdrep[1] = new int[]{11, 12, 13, 14, 15, 16, 17, 18};
@@ -42,8 +43,31 @@ public class ChessBoardRep extends Board {
         return bdrep;
     }
     @Override
-    public void makeMove() {
+    public void makeMove(Move move, int[] start) {
+        if (!OnBoard(start))
+            //@Todo find the exception you want to throw here
+            return;
+        Piece PiecetoMove = getPiece(getSquare(start));
 
+    }
+
+    /**
+     * Checks is the space is on the board
+     * @param start
+     * @return
+     */
+    private boolean OnBoard(int[] start){
+            return start[0] > 0 && start[1] > 0 && start[0] <= BOARD_LENGTH && start[1] <= BOARD_LENGTH ;
+
+    }
+
+    /**
+     * Checks if the move ends on the board
+     * @param move
+     * @return
+     */
+    private boolean moveOnBoard(Move move){
+        return OnBoard(move.getEnd());
     }
 
     /**

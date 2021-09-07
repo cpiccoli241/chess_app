@@ -1,8 +1,13 @@
 package model;
 
 public class Move {
-    int[] direction = new int[3];
-    public Move(int[] direction){
-        this.direction = direction;
+    private int[] end = new int[2];
+    public Move(int[] start, int[] direction){
+        end[0] = start[0] + direction[0];
+        end[1] = start[1] + direction[1];
+    }
+
+    public int[] getEnd() {
+        return end;
     }
 }

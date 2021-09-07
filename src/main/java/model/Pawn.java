@@ -15,19 +15,19 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public List<Move> getCandidateMoves() {
+    public List<Move> getCandidateMoves(int[] start) {
         Move[] moves;
         if (hasMoved == false){
             //has the extra space pawn move
-            moves = new Move[]{new Move(new int[]{2*direction,0,0}),
-                    new Move(new int[]{1*direction,0,0}),
-                    new Move(new int[]{1*direction,1,0}),
-                    new Move(new int[]{1*direction,-1,0})};
+            moves = new Move[]{new Move(start,new int[]{2*direction,0}),
+                    new Move(start,new int[]{1*direction,0}),
+                    new Move(start,new int[]{1*direction,1}),
+                    new Move(start,new int[]{1*direction,-1})};
         }else
             // does not have the extra space pawn move
-            moves = new Move[]{new Move(new int[]{1*direction,0,0}),
-                    new Move(new int[]{1*direction,1,0}),
-                    new Move(new int[]{1*direction,-1,0})};;
+            moves = new Move[]{new Move(start, new int[]{1*direction,0}),
+                    new Move(start,new int[]{1*direction,1}),
+                    new Move(start,new int[]{1*direction,-1})};;
         return Arrays.asList(moves);
     }
     @Override

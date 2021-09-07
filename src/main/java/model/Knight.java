@@ -4,24 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Knight extends Piece {
-    // I made it static cause every horse can move in the same directions
-    public static List candidateMoves = Arrays.asList(new Move[]{
-                                                        new Move(new int[]{-1,2,0}),
-                                                        new Move(new int[]{1,2,0}),
-                                                        new Move(new int[]{2,-1,0}),
-                                                        new Move(new int[]{2,1,0}),
-                                                        new Move(new int[]{-1,-2,0}),
-                                                        new Move(new int[]{1,-2,0}),
-                                                        new Move(new int[]{-2,-1,0}),
-                                                        new Move(new int[]{-2,1,0})
-                                                    });
     public Knight(int id, Color col) {
         super(id, col);
     }
 
     @Override
-    public List getCandidateMoves() {
-        return candidateMoves;
+    public List getCandidateMoves(int[] start) {
+        return Arrays.asList(new Move(start,new int[]{-1,2}),
+                new Move(start,new int[]{1,2}),
+                new Move(start,new int[]{2,-1}),
+                new Move(start,new int[]{2,1}),
+                new Move(start,new int[]{-1,-2}),
+                new Move(start,new int[]{1,-2}),
+                new Move(start,new int[]{-2,-1}),
+                new Move(start,new int[]{-2,1}));
     }
     @Override
     public String toString(){

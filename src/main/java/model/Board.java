@@ -14,7 +14,7 @@ public abstract class Board {
     /**
      * makes a move on the board
      */
-    public abstract void makeMove();
+    public abstract void makeMove(Move move, int[] start);
 
     /**
      * Returns whose turn it is
@@ -58,7 +58,9 @@ public abstract class Board {
     protected HashMap getPieces(){
         return pieces;
     }
-
+    protected int getSquare(int[] index){
+        return boardRep[index[0]+1][index[1]+1];
+    }
     public int[][] getBoardRep() {
         return boardRep;
     }

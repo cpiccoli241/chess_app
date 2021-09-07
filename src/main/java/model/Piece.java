@@ -40,5 +40,5 @@ public abstract class Piece {
      * in a array form
      * @return array
      */
-    public abstract List<Move> getCandidateMoves();
+    public abstract List<Move> getCandidateMoves(int[] start);
 }
