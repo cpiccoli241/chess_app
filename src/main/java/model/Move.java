@@ -3,6 +3,10 @@ package model;
 public class Move {
     private int[] start;
     private int[] end = new int[2];
+    public Move(int[]start, int end1, int end2){
+        this.start = start;
+        this.end = new int[]{end1, end2};
+    }
     public Move(int[] start, int[] direction){
         this.start=start;
         end[0] = start[0] + direction[0];

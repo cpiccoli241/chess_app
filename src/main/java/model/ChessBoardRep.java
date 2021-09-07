@@ -4,6 +4,7 @@ import java.lang.StringBuilder;
 public class ChessBoardRep extends Board {
     private final int BOARD_LENGTH = 8;
     public ChessBoardRep() {
+        setTurn(Color.WHITE);
         setBoardRep(makeBoardInit());
         // adds the default emptyPiece
         putPiece(new EmptyPiece());
@@ -46,6 +47,7 @@ public class ChessBoardRep extends Board {
     public void makeMove(Move move) {
         if(isValid(move)) {
             movePiece(move);
+            nextTurn();
         }else
             //@todo throw an error?
             return;
@@ -57,6 +59,12 @@ public class ChessBoardRep extends Board {
             return false;
         //@todo implement pins, pawn capture, etc
         return getPiece(getSquare(move.getStart())).isValidMove(move);
+    }
+    private void nextTurn(){
+        if (getTurn()==Color.WHITE)
+            setTurn(Color.BLACK);
+        else
+            setTurn(Color.WHITE);
     }
     /**
      * Checks is the space is on the board
@@ -97,5 +105,13 @@ public class ChessBoardRep extends Board {
      */
     public String WhitePerspective(){
         return new StringBuilder().append(BlackPerspective()).reverse().toString()+"\n";
+    }
+
+    /**
+     *
+     * @return if the game is over
+     */
+    public boolean endState(){
+        return false;
     }
 }

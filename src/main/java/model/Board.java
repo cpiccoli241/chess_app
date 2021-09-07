@@ -59,12 +59,15 @@ public abstract class Board {
         return pieces;
     }
     protected int getSquare(int[] index){
-        return boardRep[index[0]+1][index[1]+1];
+        return boardRep[index[0]-1][index[1]-1];
+    }
+    private void setSquare(int[] index, int value){
+        boardRep[index[0]-1][index[1]-1] = value;
     }
     protected void movePiece(Move move){
         int pieceID = getSquare(move.getStart());
-        boardRep[move.getStart()[0]-1][move.getStart()[1]-1] = 0;
-        boardRep[move.getEnd()[0]-1][move.getEnd()[1]-1] = pieceID;
+        setSquare(move.getStart(), 0);
+        setSquare(move.getEnd(), pieceID);
 
     }
     public int[][] getBoardRep() {
