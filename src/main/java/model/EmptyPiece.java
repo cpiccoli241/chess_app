@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EmptyPiece extends Piece {
     public EmptyPiece() {
-        super(0, new int[]{0,0,0}, Color.BLANK);
+        super(0, Color.BLANK);
     }
 
     @Override
