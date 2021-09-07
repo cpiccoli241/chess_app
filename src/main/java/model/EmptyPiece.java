@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class EmptyPiece extends Piece {
-    private int pieceID = 0;
-    private int[] direction = {0,0,0};
-    private Color col = Color.BLANK;
+    public EmptyPiece() {
+        super(0, new int[]{0,0,0}, Color.BLANK);
+    }
 
     @Override
     public List getCandidateMoves() {

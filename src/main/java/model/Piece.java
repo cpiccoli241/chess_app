@@ -11,6 +11,11 @@ public abstract class Piece {
     private int pieceID;
     private int[] direction;
     private Color col;
+    public Piece(int id, int[] direction, Color col){
+        pieceID = id;
+        this.direction = direction;
+        this.col = col;
+    }
     /**
      * Gets the Directions the Piece
      * Can Move
