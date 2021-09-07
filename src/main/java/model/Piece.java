@@ -12,12 +12,6 @@ public abstract class Piece {
     private Color col;
     public Piece(int id, Color col){
         pieceID = id;
-        /**
-         * Represents 3 axis of movement
-         * 0 forwards/backwards
-         * 1 left right
-         * 2 diagonal
-         */
         this.col = col;
     }
 
@@ -41,4 +35,7 @@ public abstract class Piece {
      * @return array
      */
     public abstract List<Move> getCandidateMoves(int[] start);
+    public boolean isValidMove(Move move){
+        return getCandidateMoves(move.getStart()).contains(move);
+    }
 }
