@@ -43,31 +43,29 @@ public class ChessBoardRep extends Board {
         return bdrep;
     }
     @Override
-    public void makeMove(Move move, int[] start) {
-        if (!OnBoard(start))
-            //@Todo find the exception you want to throw here
+    public void makeMove(Move move) {
+        if(isValid(move)) {
+            movePiece(move);
+        }else
+            //@todo throw an error?
             return;
-        Piece PiecetoMove = getPiece(getSquare(start));
+
 
     }
-
+    public boolean isValid(Move move){
+        if (!OnBoard(move.getStart()) || !OnBoard(move.getEnd()))
+            return false;
+        //@todo implement pins, pawn capture, etc
+        return getPiece(getSquare(move.getStart())).isValidMove(move);
+    }
     /**
      * Checks is the space is on the board
-     * @param start
+     * @param start :: the square to check
      * @return true if on board false otherwise
      */
     private boolean OnBoard(int[] start){
             return start[0] > 0 && start[1] > 0 && start[0] <= BOARD_LENGTH && start[1] <= BOARD_LENGTH ;
 
-    }
-
-    /**
-     * Checks if the move ends on the board
-     * @param move
-     * @return true if it is on board false otherwise
-     */
-    private boolean moveOnBoard(Move move){
-        return OnBoard(move.getEnd());
     }
 
     /**

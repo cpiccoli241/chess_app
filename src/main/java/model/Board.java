@@ -14,7 +14,7 @@ public abstract class Board {
     /**
      * makes a move on the board
      */
-    public abstract void makeMove(Move move, int[] start);
+    public abstract void makeMove(Move move);
 
     /**
      * Returns whose turn it is
@@ -27,7 +27,7 @@ public abstract class Board {
 
     /**
      * Sets it to the next players turn
-     * @param nextTurn
+     * @param nextTurn :: the next turn
      */
     protected void setTurn(Color nextTurn){
         turn = nextTurn;
@@ -37,7 +37,7 @@ public abstract class Board {
      * Sets the board representation
      * Used by subclasses to initialize
      * the board state
-     * @param bdrep
+     * @param bdrep:: the state to set the board
      */
     protected void setBoardRep(int[][] bdrep){
         boardRep = bdrep;
@@ -45,7 +45,7 @@ public abstract class Board {
 
     /**
      * Puts a piece in the piece hashmap
-     * @param piece
+     * @param piece :: piece to put in hashmap
      */
     protected void putPiece(Piece piece){
         pieces.put(piece.getPieceID(), piece);
@@ -55,11 +55,17 @@ public abstract class Board {
      * Get the HashMap of Pieces
      * @return pieces
      */
-    protected HashMap getPieces(){
+    protected HashMap<Integer, Piece> getPieces(){
         return pieces;
     }
     protected int getSquare(int[] index){
         return boardRep[index[0]+1][index[1]+1];
+    }
+    protected void movePiece(Move move){
+        int pieceID = getSquare(move.getStart());
+        boardRep[move.getStart()[0]-1][move.getStart()[1]-1] = 0;
+        boardRep[move.getEnd()[0]-1][move.getEnd()[1]-1] = pieceID;
+
     }
     public int[][] getBoardRep() {
         return boardRep;
