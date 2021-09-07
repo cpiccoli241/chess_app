@@ -3,10 +3,13 @@ package model;
 public class ChessBoardRep extends Board {
     public ChessBoardRep() {
         setBoardRep(makeBoardInit());
+        // adds the default emptyPiece
         putPiece(new EmptyPiece());
-        //@TODO requires at least 1 real piece to be instantiated
-        //for(int i = 1; i < 9; i++)
-        //    putPiece(new Pawn());
+        for(int i = 1; i < 9; i++) {
+            putPiece(new Pawn(10 + i, Color.WHITE));
+            putPiece(new Pawn(-10 - i, Color.BLACK));
+            //@TODO add the rest of the pieces
+        }
     }
     private int[][] makeBoardInit(){
         // note that according to oracle
