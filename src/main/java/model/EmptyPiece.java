@@ -9,7 +9,7 @@ public class EmptyPiece extends Piece {
     }
 
     @Override
-    public List getCandidateMoves() {
+    public List<Move> getCandidateMoves(int[] start) {
         return Collections.emptyList();
     }
     @Override

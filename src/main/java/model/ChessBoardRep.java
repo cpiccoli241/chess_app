@@ -54,7 +54,7 @@ public class ChessBoardRep extends Board {
     /**
      * Checks is the space is on the board
      * @param start
-     * @return
+     * @return true if on board false otherwise
      */
     private boolean OnBoard(int[] start){
             return start[0] > 0 && start[1] > 0 && start[0] <= BOARD_LENGTH && start[1] <= BOARD_LENGTH ;
@@ -64,7 +64,7 @@ public class ChessBoardRep extends Board {
     /**
      * Checks if the move ends on the board
      * @param move
-     * @return
+     * @return true if it is on board false otherwise
      */
     private boolean moveOnBoard(Move move){
         return OnBoard(move.getEnd());

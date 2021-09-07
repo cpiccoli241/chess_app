@@ -10,7 +10,7 @@ public class King extends Piece {
     }
 
     @Override
-    public List getCandidateMoves() {
+    public List<Move> getCandidateMoves(int[] start) {
         return null;
     }
     @Override
