@@ -30,4 +30,8 @@ public class Pawn extends Piece {
                     new Move(new int[]{1*direction,-1,0})};;
         return Arrays.asList(moves);
     }
+    @Override
+    public String toString(){
+        return "P";
+    }
 }

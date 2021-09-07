@@ -12,4 +12,8 @@ public class EmptyPiece extends Piece {
     public List getCandidateMoves() {
         return Collections.emptyList();
     }
+    @Override
+    public String toString(){
+        return " ";
+    }
 }

@@ -11,4 +11,8 @@ public class Queen extends Piece {
     public List getCandidateMoves() {
         return null;
     }
+    @Override
+    public String toString(){
+        return "Q";
+    }
 }

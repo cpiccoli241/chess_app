@@ -59,4 +59,10 @@ public abstract class Board {
         return pieces;
     }
 
+    public int[][] getBoardRep() {
+        return boardRep;
+    }
+    protected Piece getPiece(int id){
+        return pieces.get(id);
+    }
 }

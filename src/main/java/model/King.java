@@ -13,4 +13,8 @@ public class King extends Piece {
     public List getCandidateMoves() {
         return null;
     }
+    @Override
+    public String toString(){
+        return "K";
+    }
 }

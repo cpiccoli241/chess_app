@@ -13,4 +13,8 @@ public class Rook extends Piece {
     public List getCandidateMoves() {
         return null;
     }
+    @Override
+    public String toString(){
+        return "R";
+    }
 }
