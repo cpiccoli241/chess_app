@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class CMDChessApp {
     public static HashMap<Character, Integer> PGNConvert = new HashMap<>();
-    public static void addLetters(){
+    private static void addLetters(){
         PGNConvert.put('a',8);
         PGNConvert.put('b',7);
         PGNConvert.put('c',6);

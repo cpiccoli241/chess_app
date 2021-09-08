@@ -45,7 +45,7 @@ public class ChessBoardRep extends Board {
     }
     @Override
     public void makeMove(Move move) {
-        if(isValid(move)) {
+        if(isValidMove(move)) {
             movePiece(move);
             nextTurn();
         }else
@@ -54,7 +54,7 @@ public class ChessBoardRep extends Board {
 
 
     }
-    public boolean isValid(Move move){
+    public boolean isValidMove(Move move){
         if (!OnBoard(move.getStart()) || !OnBoard(move.getEnd()))
             return false;
         //@todo implement pins, pawn capture, etc
