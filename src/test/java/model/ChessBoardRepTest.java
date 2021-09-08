@@ -53,6 +53,15 @@ public class ChessBoardRepTest {
         bd.makeMove(app.convertFromPGNToMove("pe5e7"));
         assertTrue(bd.getSquare(app.convertFromPGNToSquare("e7"))==0);
         assertTrue(bd.getSquare(app.convertFromPGNToSquare("e5"))==15);
+    }
+    @Test
+    public void testPawnCapture(){
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+        //white moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pe2e4"));
+        //black moving pawn forwad 2
+        bd.makeMove(app.convertFromPGNToMove("pe7e5"));
 
         //Forwards Capture Moves
         bd.setTurn(Color.WHITE);
@@ -66,6 +75,22 @@ public class ChessBoardRepTest {
         assertTrue(bd.getSquare(app.convertFromPGNToSquare("e4"))==14);
         assertTrue(bd.getSquare(app.convertFromPGNToSquare("e5"))==-14);
 
+        //Make Sure Pawns can only move diagonally on capture
+        bd.setTurn(Color.WHITE);
+        bd.makeMove(app.convertFromPGNToMove("pe4d5"));
+        assertTrue(bd.getSquare(app.convertFromPGNToSquare("e4"))==14);
+        assertTrue(bd.getSquare(app.convertFromPGNToSquare("d5"))==0);
+        bd.setTurn(Color.BLACK);
+        bd.makeMove(app.convertFromPGNToMove("pe5d4"));
+        assertTrue(bd.getSquare(app.convertFromPGNToSquare("e5"))==-14);
+        assertTrue(bd.getSquare(app.convertFromPGNToSquare("d4"))==0);
+
+        // Test Actual Pawn Capture
+        bd.setTurn(Color.WHITE);
+        bd.makeMove(app.convertFromPGNToMove("pd2d4"));
+        bd.makeMove(app.convertFromPGNToMove("pe5d4"));
+        assertTrue(bd.getSquare(app.convertFromPGNToSquare("e5"))==0);
+        assertTrue(bd.getSquare(app.convertFromPGNToSquare("d4"))==-14);
     }
     @Test
     public void testMoveKnight(){
