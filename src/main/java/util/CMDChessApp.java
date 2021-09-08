@@ -1,3 +1,5 @@
+package util;
+
 import model.ChessBoardRep;
 import model.Color;
 import model.Move;
@@ -6,7 +8,15 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class CMDChessApp {
-    public static HashMap<Character, Integer> PGNConvert = new HashMap<>();
+    private static HashMap<Character, Integer> PGNConvert = new HashMap<>();
+    private static boolean setup = false;
+    public CMDChessApp(){
+        if(!setup) {
+            addLetters();
+            setup = true;
+        }
+
+    }
     private static void addLetters(){
         PGNConvert.put('a',8);
         PGNConvert.put('b',7);
@@ -26,9 +36,16 @@ public class CMDChessApp {
         //@todo support truePGN movement for now require start square id Pa2a3
         //@todo find a good place for converting pgn to ints for now do it here
 
-        int[] start = {Integer.parseInt(input.substring(2,3)),PGNConvert.get(input.charAt(1))};
-        int[] end = {Integer.parseInt(input.substring(4,5)),PGNConvert.get(input.charAt(3))};
-        bd.makeMove(new Move(start,end[0],end[1]));
+        bd.makeMove(convertFromPGNToMove(input));
+    }
+    public static int[] convertFromPGNToSquare(String input){
+        return new int[]{Integer.parseInt(input.substring(1, 2)), PGNConvert.get(input.charAt(0))};
+    }
+    public static Move convertFromPGNToMove(String input){
+
+        int[] start = convertFromPGNToSquare(input.substring(1,3));
+        int[] end = convertFromPGNToSquare(input.substring(3,5));
+        return new Move(start,end[0],end[1]);
     }
     public static void main(String[] args) {
         addLetters();
