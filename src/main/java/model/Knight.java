@@ -9,7 +9,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public List getCandidateMoves(int[] start) {
+    public List<Move> getCandidateMoves(int[] start) {
         return Arrays.asList(new Move(start,new int[]{-1,2}),
                 new Move(start,new int[]{1,2}),
                 new Move(start,new int[]{2,-1}),
