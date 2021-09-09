@@ -30,6 +30,11 @@ public class Rook extends Piece {
                 );
     }
     @Override
+    public boolean isValidMove(Move move){
+        return (move.getStart()[0] == move.getEnd()[0] && move.getStart()[1] != move.getEnd()[1])
+                || (move.getStart()[1] == move.getEnd()[1] && move.getStart()[0] != move.getEnd()[0]) ;
+    }
+    @Override
     public String toString(){
         return "R";
     }
