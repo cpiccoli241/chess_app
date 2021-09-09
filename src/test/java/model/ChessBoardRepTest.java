@@ -208,6 +208,31 @@ public class ChessBoardRepTest {
         bd.makeMove(app.convertFromPGNToMove("qe6h6"));
         helper_test_move(bd, app, "e6", "h6", 0, -5);
     }
+    @Test
+    public void testKingMoves() {
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+        //white moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pe2e4"));
+        //black moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pe7e5"));
+
+        bd.makeMove(app.convertFromPGNToMove("ke1e2"));
+        helper_test_move(bd, app, "e1", "e2", 0, 4);
+        bd.makeMove(app.convertFromPGNToMove("ke8e7"));
+        helper_test_move(bd, app, "e8", "e7", 0, -4);
+
+        bd.makeMove(app.convertFromPGNToMove("ke2d3"));
+        helper_test_move(bd, app, "e2", "d3", 0, 4);
+        bd.makeMove(app.convertFromPGNToMove("ke7d6"));
+        helper_test_move(bd, app, "e7", "d6", 0, -4);
+
+        bd.makeMove(app.convertFromPGNToMove("kd3e3"));
+        helper_test_move(bd, app, "d3", "e3", 0, 4);
+        bd.makeMove(app.convertFromPGNToMove("kd6e6"));
+        helper_test_move(bd, app, "d6", "e6", 0, -4);
+
+    }
     /*
     Now we begin testing other rules like looking for collisions
      */
