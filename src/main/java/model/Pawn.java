@@ -34,4 +34,8 @@ public class Pawn extends Piece {
     public String toString(){
         return "P";
     }
+    @Override
+    public void hasMoved(){
+        hasMoved = true;
+    }
 }

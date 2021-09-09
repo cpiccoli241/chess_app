@@ -58,12 +58,19 @@ public class ChessBoardRep extends Board {
     public boolean isValidMove(Move move){
         if (!OnBoard(move.getStart()) || !OnBoard(move.getEnd()))
             return false;
-        if(!getPiece(getSquare(move.getStart())).isValidMove(move))
+        Piece piece = getPiece(getSquare(move.getStart()));
+        if(!piece.isValidMove(move))
             return false;
-        if(getPiece(getSquare(move.getStart())).toString().charAt(0) == 'N')
+        if(piece.toString().charAt(0) == 'N')
             return true;
         //@todo implement pins, pawn capture, etc
-        return (!findCollision(move));
+        if (findCollision(move))
+            return false;
+        // Beginings of castling rights
+        // and double pawn advance
+        if(piece.toString().charAt(0) == 'P' || piece.toString().charAt(0) == 'K')
+            piece.hasMoved();
+        return true;
     }
     private void nextTurn(){
         if (getTurn()==Color.WHITE)

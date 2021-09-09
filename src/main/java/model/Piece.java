@@ -38,4 +38,11 @@ public abstract class Piece {
     public boolean isValidMove(Move move){
         return getCandidateMoves(move.getStart()).contains(move);
     }
+
+    /**
+     * Dummy function because it is used by
+     * King, Pawn, and Rook to assure castling rights and
+     * double pawn advance
+     */
+    public void hasMoved(){}
 }
