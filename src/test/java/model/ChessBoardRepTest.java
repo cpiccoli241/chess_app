@@ -303,4 +303,22 @@ public class ChessBoardRepTest {
         helper_test_move(bd, app, "e8", "e7", -4, -14);
 
     }
+    /*
+     *
+     * Miscelanious
+     *
+     */
+    @Test
+    public void testMoveOnRightTurn(){
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+
+        //test black moving pawn forward 1
+        bd.makeMove(app.convertFromPGNToMove("pd7d6"));
+        helper_test_move(bd, app, "d7", "d6", -15, 0);
+        // test white moving pawn forward 1
+        bd.setTurn(Color.BLACK);
+        bd.makeMove(app.convertFromPGNToMove("pd2d3"));
+        helper_test_move(bd, app, "d2", "d3", 15, 0);
+    }
 }
