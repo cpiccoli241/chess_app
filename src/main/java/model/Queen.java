@@ -3,6 +3,8 @@ package model;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.Math.abs;
+
 public class Queen extends Piece {
     public Queen(int id, Color col) {
         super(id, col);
@@ -40,6 +42,15 @@ public class Queen extends Piece {
                 new Move(start,new int[]{3-start[1],7-start[1]}),
                 new Move(start,new int[]{2-start[1],8-start[1]})
         );
+    }
+    /**
+     * Find if the Queen move is legal in 15 or so operations
+     */
+    public boolean isValidMove(Move move){
+        return (abs(move.getStart()[0] - move.getEnd()[0]) == abs(move.getEnd()[1] - move.getStart()[1]))
+                ||
+                (move.getStart()[0] == move.getEnd()[0] && move.getStart()[1] != move.getEnd()[1])
+                || (move.getStart()[1] == move.getEnd()[1] && move.getStart()[0] != move.getEnd()[0]);
     }
     @Override
     public String toString(){
