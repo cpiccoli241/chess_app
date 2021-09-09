@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import util.CMDChessApp;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("Model-tier")
@@ -233,6 +234,16 @@ public class ChessBoardRepTest {
         helper_test_move(bd, app, "d6", "e6", 0, -4);
 
     }
+    @Test
+    public void testEmptyMoves() {
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+
+        bd.makeMove(app.convertFromPGNToMove("ee3e4"));
+        helper_test_move(bd, app, "e3", "e4", 0, 0);
+        assertEquals(bd.getTurn(),Color.WHITE);
+    }
+
     /*
     Now we begin testing other rules like looking for collisions
      */
