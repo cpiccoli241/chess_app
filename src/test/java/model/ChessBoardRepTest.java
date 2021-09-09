@@ -117,4 +117,95 @@ public class ChessBoardRepTest {
         bd.makeMove(app.convertFromPGNToMove("he5d6"));
         helper_test_move(bd, app, "f3", "e5", 0, 2);
     }
+    @Test
+    public void testBishopMoves() {
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+        //white moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pe2e4"));
+        //black moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pe7e5"));
+
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("bf1e2"));
+        helper_test_move(bd, app, "f1", "e2", 0, 3);
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("bf8c5"));
+        helper_test_move(bd, app, "f8", "c5", 0, -3);
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("be2f1"));
+        helper_test_move(bd, app, "f1", "e2", 3, 0);
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("bc5e3"));
+        helper_test_move(bd, app, "c5", "e3", 0, -3);
+
+        //illegal bishop moves
+        //test white moving bishop straight
+        bd.makeMove(app.convertFromPGNToMove("bf1f6"));
+        helper_test_move(bd, app, "f6", "f1", 0, 3);
+
+    }
+    @Test
+    public void testRookMoves() {
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+        //white moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pa2a4"));
+        //black moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pa7a5"));
+
+        //test white moving rook passively
+        bd.makeMove(app.convertFromPGNToMove("ra1a2"));
+        helper_test_move(bd, app, "a1", "a2", 0, 8);
+        //test white moving rook passively
+        bd.makeMove(app.convertFromPGNToMove("ra8a7"));
+        helper_test_move(bd, app, "a8", "a7", 0, -8);
+        //test white moving rook passively
+        bd.makeMove(app.convertFromPGNToMove("ra2a3"));
+        helper_test_move(bd, app, "a2", "a3", 8, 0);
+        //test white moving rook passively
+        bd.makeMove(app.convertFromPGNToMove("ra7a6"));
+        helper_test_move(bd, app, "a7", "a6", 0, -8);
+
+        //illegal bishop moves
+        //test white moving bishop straight
+        bd.makeMove(app.convertFromPGNToMove("bf1f6"));
+        helper_test_move(bd, app, "f6", "f1", 0, 3);
+
+    }
+    @Test
+    public void testQueenMoves() {
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+        //white moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pe2e4"));
+        //black moving pawn forward 2
+        bd.makeMove(app.convertFromPGNToMove("pe7e5"));
+
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("qd1e2"));
+        helper_test_move(bd, app, "d1", "e2", 0, 5);
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("qd8e7"));
+        helper_test_move(bd, app, "d8", "e7", 0, -5);
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("qe2d3"));
+        helper_test_move(bd, app, "e2", "d3", 0, 5);
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("qe7d6"));
+        helper_test_move(bd, app, "e7", "d6", 0, -5);
+
+        //test queen moving like rook
+        bd.makeMove(app.convertFromPGNToMove("qd3e3"));
+        helper_test_move(bd, app, "d3", "e3", 0, -5);
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("qd6e6"));
+        helper_test_move(bd, app, "d6", "e6", 0, 5);
+        //test queen moving like rook
+        bd.makeMove(app.convertFromPGNToMove("qe3h3"));
+        helper_test_move(bd, app, "e3", "h3", 0, -5);
+        //test white moving bishop passively
+        bd.makeMove(app.convertFromPGNToMove("qe6h6"));
+        helper_test_move(bd, app, "e6", "h6", 0, 5);
+    }
 }
