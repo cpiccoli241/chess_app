@@ -90,10 +90,18 @@ public class ChessBoardRep extends Board {
         if(!piece.isValidMove(move))
             return false;
 
-        //@todo implement pins, pawn capture, etc
+        //@todo implement pins, checks, etc
         //return true here cause a knight can jump over pieces
         if(piece.toString().charAt(0) == 'N')
             return true;
+        //pawn capture case
+        if(piece.toString().charAt(0)=='P')
+            if(move.getDir()[1] != 0) {
+                if (getSquare(move.getEnd()) == 0)
+                    return false;
+            }else if(getSquare(move.getEnd()) != 0)
+                return false;
+
         if (findCollision(move))
             return false;
         return true;
