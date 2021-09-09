@@ -293,4 +293,14 @@ public class ChessBoardRepTest {
         bd.makeMove(app.convertFromPGNToMove("bf8c5"));
         helper_test_move(bd, app, "f8", "c5", -3, 0);
     }
+    @Test
+    public void testKingCollision(){
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+        bd.makeMove(app.convertFromPGNToMove("ke1e2"));
+        helper_test_move(bd, app, "e1", "e2", 4, 0);
+        bd.makeMove(app.convertFromPGNToMove("ke8e7"));
+        helper_test_move(bd, app, "e8", "e7", -4, 0);
+
+    }
 }
