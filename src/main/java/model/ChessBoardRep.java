@@ -32,6 +32,11 @@ public class ChessBoardRep extends Board {
         putPiece(new Knight(-7, Color.BLACK));
         putPiece(new Rook(-8, Color.BLACK));
     }
+
+    /**
+     * Helper function for constructor
+     * @return makes a default chess board
+     */
     private int[][] makeBoardInit(){
         // note that according to oracle
         // all the values are defaulted to 0
@@ -44,10 +49,21 @@ public class ChessBoardRep extends Board {
 
         return bdrep;
     }
+
+    /**
+     * moves a piece on the board
+     * @param move the move made
+     */
     @Override
     public void makeMove(Move move) {
         if(isValidMove(move)) {
             movePiece(move);
+            // Beginings of castling rights
+            // and double pawn advance
+            Piece piece = getPiece(getSquare(move.getEnd()));
+            //does nothing unless the piece is a rook, king or pawn
+            piece.hasMoved();
+
             nextTurn();
         }else
             //@todo throw an error?
@@ -55,23 +71,34 @@ public class ChessBoardRep extends Board {
 
 
     }
+
+    /**
+     * Checks to see if a move is valid
+     * @param move being checking
+     * @return whether to allow the move or not
+     */
     public boolean isValidMove(Move move){
         if (!OnBoard(move.getStart()) || !OnBoard(move.getEnd()))
             return false;
         Piece piece = getPiece(getSquare(move.getStart()));
+        //make sure you aren't capturing your own piece
+        if(piece.getColor()==getPiece(getSquare(move.getEnd())).getColor())
+            return false;
+        //make sure the piece can move in this way
         if(!piece.isValidMove(move))
             return false;
+
+        //@todo implement pins, pawn capture, etc
+        //return true here cause a knight can jump over pieces
         if(piece.toString().charAt(0) == 'N')
             return true;
-        //@todo implement pins, pawn capture, etc
         if (findCollision(move))
             return false;
-        // Beginings of castling rights
-        // and double pawn advance
-        if(piece.toString().charAt(0) == 'P' || piece.toString().charAt(0) == 'K')
-            piece.hasMoved();
         return true;
     }
+    /**
+     * changes the current players turn
+     */
     private void nextTurn(){
         if (getTurn()==Color.WHITE)
             setTurn(Color.BLACK);
@@ -118,15 +145,24 @@ public class ChessBoardRep extends Board {
     public String WhitePerspective(){
         return new StringBuilder().append(BlackPerspective()).reverse().toString()+"\n";
     }
+
+    /**
+     * Tries to find a collision in the line of the move
+     * @param move being tested
+     * @return whether a piece was on the line
+     */
     private boolean findCollision(Move move){
         int[] dir = move.getDir();
         int[] spot = Arrays.copyOf(move.getStart(),2);
+        spot[0] = spot[0] + dir[0];
+        spot[1] = spot[1] + dir[1];
+
         while(move.getEnd()[0] != spot[0] || move.getEnd()[1] != spot[1]){
-            spot[0] = spot[0] + dir[0];
-            spot[1] = spot[1] + dir[1];
             if(getSquare(spot)!=0){
                 return true;
             }
+            spot[0] = spot[0] + dir[0];
+            spot[1] = spot[1] + dir[1];
         }
         return false;
     }

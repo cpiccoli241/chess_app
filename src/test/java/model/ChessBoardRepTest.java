@@ -294,7 +294,7 @@ public class ChessBoardRepTest {
         helper_test_move(bd, app, "f8", "c5", -3, 0);
     }
     @Test
-    public void testKingCollision(){
+    public void testKingSelfCapture(){
         ChessBoardRep bd = new ChessBoardRep();
         CMDChessApp app = new CMDChessApp();
         bd.makeMove(app.convertFromPGNToMove("ke1e2"));
