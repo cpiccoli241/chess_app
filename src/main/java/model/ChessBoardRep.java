@@ -60,9 +60,8 @@ public class ChessBoardRep extends Board {
             movePiece(move);
             // Beginings of castling rights
             // and double pawn advance
-            Piece piece = getPiece(getSquare(move.getEnd()));
             //does nothing unless the piece is a rook, king or pawn
-            piece.hasMoved();
+            getPiece(getSquare(move.getEnd())).hasMoved();
 
             nextTurn();
         }else
