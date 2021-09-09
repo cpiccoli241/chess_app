@@ -286,8 +286,8 @@ public class ChessBoardRepTest {
         ChessBoardRep bd = new ChessBoardRep();
         CMDChessApp app = new CMDChessApp();
         //test white moving bishop through pawn
-        bd.makeMove(app.convertFromPGNToMove("bf1e2"));
-        helper_test_move(bd, app, "f1", "e2", 3, 0);
+        bd.makeMove(app.convertFromPGNToMove("bf1e3"));
+        helper_test_move(bd, app, "f1", "e3", 3, 0);
         //test white moving bishop through pawn
         bd.setTurn(Color.BLACK);
         bd.makeMove(app.convertFromPGNToMove("bf8c5"));
@@ -298,9 +298,9 @@ public class ChessBoardRepTest {
         ChessBoardRep bd = new ChessBoardRep();
         CMDChessApp app = new CMDChessApp();
         bd.makeMove(app.convertFromPGNToMove("ke1e2"));
-        helper_test_move(bd, app, "e1", "e2", 4, 0);
+        helper_test_move(bd, app, "e1", "e2", 4, 14);
         bd.makeMove(app.convertFromPGNToMove("ke8e7"));
-        helper_test_move(bd, app, "e8", "e7", -4, 0);
+        helper_test_move(bd, app, "e8", "e7", -4, -14);
 
     }
 }
