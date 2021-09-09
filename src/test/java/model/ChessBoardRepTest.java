@@ -208,4 +208,53 @@ public class ChessBoardRepTest {
         bd.makeMove(app.convertFromPGNToMove("qe6h6"));
         helper_test_move(bd, app, "e6", "h6", 0, -5);
     }
+    /*
+    Now we begin testing other rules like looking for collisions
+     */
+    @Test
+    public void testQueenCollisions() {
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+
+        //test white moving queen through pawn
+        bd.makeMove(app.convertFromPGNToMove("qd1e3"));
+        helper_test_move(bd, app, "d1", "c3", 5, 0);
+        //test black moving queen through pawn
+        bd.setTurn(Color.BLACK);
+        bd.makeMove(app.convertFromPGNToMove("qd8c6"));
+        helper_test_move(bd, app, "d8", "c6", -5, 0);
+
+        bd.setTurn(Color.WHITE);
+        //test white moving queen through pawn
+        bd.makeMove(app.convertFromPGNToMove("qd1d3"));
+        helper_test_move(bd, app, "d1", "d3", 5, 0);
+        //test black moving queen through pawn
+        bd.setTurn(Color.BLACK);
+        bd.makeMove(app.convertFromPGNToMove("qd8d6"));
+        helper_test_move(bd, app, "d8", "d6", -5, 0);
+    }
+    @Test
+    public void testRookCollision() {
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+        //test white moving queen through pawn
+        bd.makeMove(app.convertFromPGNToMove("ra1a3"));
+        helper_test_move(bd, app, "a1", "a3", 8, 0);
+        //test black moving queen through pawn
+        bd.setTurn(Color.BLACK);
+        bd.makeMove(app.convertFromPGNToMove("ra8a6"));
+        helper_test_move(bd, app, "a8", "a6", -8, 0);
+    }
+    @Test
+    public void testBishopCollision(){
+        ChessBoardRep bd = new ChessBoardRep();
+        CMDChessApp app = new CMDChessApp();
+        //test white moving bishop through pawn
+        bd.makeMove(app.convertFromPGNToMove("bf1e2"));
+        helper_test_move(bd, app, "f1", "e2", 3, 0);
+        //test white moving bishop through pawn
+        bd.setTurn(Color.BLACK);
+        bd.makeMove(app.convertFromPGNToMove("bf8c5"));
+        helper_test_move(bd, app, "f8", "c5", -3, 0);
+    }
 }
