@@ -197,15 +197,15 @@ public class ChessBoardRepTest {
 
         //test queen moving like rook
         bd.makeMove(app.convertFromPGNToMove("qd3e3"));
-        helper_test_move(bd, app, "d3", "e3", 0, -5);
+        helper_test_move(bd, app, "d3", "e3", 0, 5);
         //test white moving bishop passively
         bd.makeMove(app.convertFromPGNToMove("qd6e6"));
-        helper_test_move(bd, app, "d6", "e6", 0, 5);
+        helper_test_move(bd, app, "d6", "e6", 0, -5);
         //test queen moving like rook
         bd.makeMove(app.convertFromPGNToMove("qe3h3"));
-        helper_test_move(bd, app, "e3", "h3", 0, -5);
+        helper_test_move(bd, app, "e3", "h3", 0, 5);
         //test white moving bishop passively
         bd.makeMove(app.convertFromPGNToMove("qe6h6"));
-        helper_test_move(bd, app, "e6", "h6", 0, 5);
+        helper_test_move(bd, app, "e6", "h6", 0, -5);
     }
 }
