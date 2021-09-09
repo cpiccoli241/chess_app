@@ -162,7 +162,7 @@ public class ChessBoardRepTest {
         helper_test_move(bd, app, "a8", "a7", 0, -8);
         //test white moving rook passively
         bd.makeMove(app.convertFromPGNToMove("ra2a3"));
-        helper_test_move(bd, app, "a2", "a3", 8, 0);
+        helper_test_move(bd, app, "a2", "a3", 0, 8);
         //test white moving rook passively
         bd.makeMove(app.convertFromPGNToMove("ra7a6"));
         helper_test_move(bd, app, "a7", "a6", 0, -8);
