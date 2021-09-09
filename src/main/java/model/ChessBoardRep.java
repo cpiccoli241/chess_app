@@ -79,7 +79,10 @@ public class ChessBoardRep extends Board {
     public boolean isValidMove(Move move){
         if (!OnBoard(move.getStart()) || !OnBoard(move.getEnd()))
             return false;
+        //can't move a piece that isn't yours
         Piece piece = getPiece(getSquare(move.getStart()));
+        if(getTurn()!= piece.getColor())
+            return false;
         //make sure you aren't capturing your own piece
         if(piece.getColor()==getPiece(getSquare(move.getEnd())).getColor())
             return false;
@@ -121,7 +124,7 @@ public class ChessBoardRep extends Board {
      * @return A string representing the locations of all the pieces from blacks perspective
      */
     public String BlackPerspective(){
-        String output = "| H | G | F | E | D | C | B | A |\n" +
+        String output = "| H | G | F | E | D | C | B | A |     \n" +
                         "- - - - - - - - - - - - - - - - - - -\n";
         Integer counter = 1;
         for (int[] row: getBoardRep()) {
