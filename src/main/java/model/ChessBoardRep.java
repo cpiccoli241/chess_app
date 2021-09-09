@@ -1,5 +1,6 @@
 package model;
 import java.lang.StringBuilder;
+import java.util.Arrays;
 
 public class ChessBoardRep extends Board {
     private final int BOARD_LENGTH = 8;
@@ -57,8 +58,12 @@ public class ChessBoardRep extends Board {
     public boolean isValidMove(Move move){
         if (!OnBoard(move.getStart()) || !OnBoard(move.getEnd()))
             return false;
+        if(!getPiece(getSquare(move.getStart())).isValidMove(move))
+            return false;
+        if(getPiece(getSquare(move.getStart())).toString().charAt(0) == 'N')
+            return true;
         //@todo implement pins, pawn capture, etc
-        return getPiece(getSquare(move.getStart())).isValidMove(move);
+        return (!findCollision(move));
     }
     private void nextTurn(){
         if (getTurn()==Color.WHITE)
@@ -106,7 +111,18 @@ public class ChessBoardRep extends Board {
     public String WhitePerspective(){
         return new StringBuilder().append(BlackPerspective()).reverse().toString()+"\n";
     }
-
+    private boolean findCollision(Move move){
+        int[] dir = move.getDir();
+        int[] spot = Arrays.copyOf(move.getStart(),2);
+        while(move.getEnd()[0] != spot[0] || move.getEnd()[1] != spot[1]){
+            spot[0] = spot[0] + dir[0];
+            spot[1] = spot[1] + dir[1];
+            if(getSquare(spot)!=0){
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      *
      * @return if the game is over
