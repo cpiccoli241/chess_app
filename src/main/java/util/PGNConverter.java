@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class PGNConverter {
     private static HashMap<Character, Integer> PGNConvert = new HashMap<>();
-    public void setup(){
+    public static void setup(){
         addLetters();
     }
 
