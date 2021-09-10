@@ -1,5 +1,3 @@
-package util;
-
 import model.ChessBoardRep;
 import model.Color;
 import model.Move;

@@ -2,7 +2,7 @@ package model;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import util.CMDChessApp;
+import CMDChessApp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
