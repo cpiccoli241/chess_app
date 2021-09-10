@@ -68,6 +68,7 @@ public abstract class Board {
         int pieceID = getSquare(move.getStart());
         setSquare(move.getStart(), 0);
         setSquare(move.getEnd(), pieceID);
+        getPiece(pieceID).move(move.getEnd());
 
     }
     public int[][] getBoardRep() {

@@ -7,7 +7,7 @@ public class King extends Piece {
     private boolean hasmoved = false;
 
     public King(int id, Color col) {
-        super(id, col);
+        super(id, col, new int[]{1,4});
     }
 
     @Override

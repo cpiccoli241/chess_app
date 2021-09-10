@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,22 +16,35 @@ public class Bishop extends Piece {
      * Not usable rn @todo
      */
     public List<Move> getCandidateMoves(int[] start) {
-        List<Move> moves = Arrays.asList(
-                new Move(start,2-start[0],2-start[1]),
-                new Move(start,  3-start[0],3-start[1]),
-                new Move(start,  4-start[0],4-start[1]),
-                new Move(start,  5-start[0],5-start[1]),
-                new Move(start,  6-start[0],6-start[1]),
-                new Move(start,  7-start[0],7-start[1]),
-                new Move(start,  8-start[0],8-start[1]),
-                new Move(start,  8-start[0],2-start[1]),
-                new Move(start,  7-start[0],3-start[1]),
-                new Move(start,  6-start[0],4-start[1]),
-                new Move(start,  5-start[0],5-start[1]),
-                new Move(start,  4-start[0],6-start[1]),
-                new Move(start,  3-start[0],7-start[1]),
-                new Move(start,  2-start[0],8-start[1])
-        );
+        List<Move> moves = new ArrayList<>();
+        int[] end = Arrays.copyOf(start,2);
+        // very grossly find all the bishop moves
+        while (end[0] <= ChessBoardRep.BOARD_LENGTH && end[1] <= ChessBoardRep.BOARD_LENGTH) {
+            end[0] = end[0]+1;
+            end[1]= end[1] +1;
+            moves.add(new Move(start, end));
+        }
+
+        end = Arrays.copyOf(start,2);
+        while (end[0] > 0 && end[1] > 0) {
+            end[0] = end[0]-1;
+            end[1]= end[1] -1;
+            moves.add(new Move(start, end));
+        }
+
+        end = Arrays.copyOf(start,2);
+        while (end[0] <= ChessBoardRep.BOARD_LENGTH && end[1] > 0) {
+            end[0] = end[0]+1;
+            end[1]= end[1] -1;
+            moves.add(new Move(start, end));
+        }
+
+        end = Arrays.copyOf(start,2);
+        while (end[0] > 0 && end[1] <= ChessBoardRep.BOARD_LENGTH) {
+            end[0] = end[0]+1;
+            end[1]= end[1] -1;
+            moves.add(new Move(start, end));
+        }
         return moves;
     }
     @Override

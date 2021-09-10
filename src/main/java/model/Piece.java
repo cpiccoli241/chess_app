@@ -10,9 +10,15 @@ public abstract class Piece {
      */
     private int pieceID;
     private Color col;
+    private int[] position;
     public Piece(int id, Color col){
         pieceID = id;
         this.col = col;
+    }
+    public Piece(int id, Color col, int[] position){
+        pieceID = id;
+        this.col = col;
+        this.position = position;
     }
 
     /**
@@ -45,5 +51,11 @@ public abstract class Piece {
      * double pawn advance
      */
     public void hasMoved(){}
+    public void move(int[] end){
+        position = end;
+    }
+    public int[] getPosition(){
+        return position;
+    }
 
 }

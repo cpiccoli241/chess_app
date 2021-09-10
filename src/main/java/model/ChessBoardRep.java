@@ -1,9 +1,14 @@
 package model;
 import java.lang.StringBuilder;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ChessBoardRep extends Board {
-    private final int BOARD_LENGTH = 8;
+    public static final int BOARD_LENGTH = 8;
+    private static final int KingWId = 4;
+    private static final int KingBId = -4;
+    private boolean incheck = false;
+    private ArrayList<Piece> piecesChecking = new ArrayList<>();
     public ChessBoardRep() {
         setTurn(Color.WHITE);
         setBoardRep(makeBoardInit());
@@ -56,6 +61,9 @@ public class ChessBoardRep extends Board {
      */
     @Override
     public void makeMove(Move move) {
+        if(getTurn()!= getPiece(getSquare(move.getStart())).getColor())
+            return;
+
         if(isValidMove(move)) {
             movePiece(move);
             // Beginings of castling rights
@@ -64,6 +72,26 @@ public class ChessBoardRep extends Board {
             getPiece(getSquare(move.getEnd())).hasMoved();
 
             nextTurn();
+            //@Todo check here
+
+            // Simple check scenario checks if the piece that has moved checked king
+            //@Todo discovery Check only possible with rooks, queen and bishop
+            int KingId;
+            if (Color.WHITE == getTurn())
+                KingId = KingWId;
+            else
+                KingId = KingBId;
+
+            if (isValidMove(new Move(move.getEnd(), getPiece(KingId).getPosition()))){
+                incheck = true;
+                piecesChecking.add(getPiece(getSquare(move.getEnd())));
+            }
+            Piece checkingPiece = checkDiscovery(move.getStart(), KingId);
+            if(checkingPiece != null) {
+                incheck = true;
+                piecesChecking.add(checkingPiece);
+            }
+
         }else
             //@todo throw an error?
             return;
@@ -71,6 +99,45 @@ public class ChessBoardRep extends Board {
 
     }
 
+    /**
+     * Checks the direction the piece is in of the king
+     * notable it must be [1,0] [-1,1], [1,1] or [0,1] vector direction of the king
+     * @param emptySQ
+     * @param KingID
+     * @return
+     */
+    private Piece checkDiscovery(int[] emptySQ, int KingID){
+        Move mv = new Move(emptySQ, getPiece(KingID).getPosition());
+        int[] dir = mv.getDir();
+        int pieceID = checkSQInDir(mv.getStart(),dir);
+        // if pieceid isnonempty or is white no need to do anything else return
+        if(pieceID==0||getPiece(pieceID).getColor() == getPiece(KingID).getColor())
+            return null;
+        // ok so what if it is black
+        // Check to see if it is valid for the oppenent to take their piece
+        if(isValidMove(new Move(getPiece(pieceID).getPosition(), getPiece(KingID).getPosition()))){
+            return getPiece(pieceID);
+        }
+        return null;
+    }
+
+    /**
+     * Helper function
+     * Goes in a direction until it finds a piece
+     * or goes off the board
+     * @param start the starting square
+     * @param dir the direction to go in
+     * @return the pieceid of the first nonempty piece
+     */
+    private int checkSQInDir(int[] start, int[] dir){
+        while(OnBoard(start)){
+            start[0] = start[0] + dir[0];
+            start[1] = start[1] + dir[1];
+            if(getSquare(start)!=0)
+                return getSquare(start);
+        }
+        return 0;
+    }
     /**
      * Checks to see if a move is valid
      * @param move being checking
@@ -81,8 +148,6 @@ public class ChessBoardRep extends Board {
             return false;
         //can't move a piece that isn't yours
         Piece piece = getPiece(getSquare(move.getStart()));
-        if(getTurn()!= piece.getColor())
-            return false;
         //make sure you aren't capturing your own piece
         if(piece.getColor()==getPiece(getSquare(move.getEnd())).getColor())
             return false;
