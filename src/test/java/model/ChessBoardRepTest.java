@@ -303,9 +303,46 @@ public class ChessBoardRepTest {
         helper_test_move(bd,   "e8", "e7", -4, -14);
 
     }
+
     /*
      *
-     * Miscelanious
+     * The tests for checks
+     *
+     */
+    @Test
+    public void testCheckSeen(){
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd2d4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd7d5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe2e4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe7e5"));
+
+        bd.makeMove(PGNConverter.convertFromPGNToMove("bf1b5"));
+        assertTrue(bd.isInCheck());
+        assertTrue(bd.getTurn()==Color.BLACK);
+    }
+    @Test
+    public void testCheckLimitsMoves(){
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd2d4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd7d5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe2e4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe7e5"));
+
+        bd.makeMove(PGNConverter.convertFromPGNToMove("bf1b5"));
+        assertTrue(bd.isInCheck());
+        assertTrue(bd.getTurn()==Color.BLACK);
+        // this move should be caught as illegal
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa7a6"));
+        assertTrue(bd.isInCheck());
+        assertTrue(bd.getTurn()==Color.BLACK);
+
+    }
+    /*
+     *
+     * Miscellaneous
      *
      */
     @Test

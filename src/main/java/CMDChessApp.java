@@ -15,13 +15,15 @@ public class CMDChessApp {
     }
 
     public static void takeTurn(Scanner scin, ChessBoardRep bd){
+        if(bd.isInCheck()){
+            System.out.println("Check");
+        }
         if(bd.getTurn() == Color.WHITE)
             System.out.println("White Players Move!");
         else
             System.out.println("Black Players Move!");
         String input = scin.nextLine();
         //@todo support truePGN movement for now require start square id Pa2a3
-        //@todo find a good place for converting pgn to ints for now do it here
 
         bd.makeMove(PGNConverter.convertFromPGNToMove(input));
     }

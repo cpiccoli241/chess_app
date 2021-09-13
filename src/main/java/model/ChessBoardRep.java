@@ -70,6 +70,19 @@ public class ChessBoardRep extends Board {
 
         if(isValidMove(move)) {
             movePiece(move);
+            //check to see if the move prevents the check
+            int KingId;
+            if (Color.WHITE == getTurn())
+                KingId = KingWId;
+            else
+                KingId = KingBId;
+            for(Piece checkers:piecesChecking){
+                if(isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
+                    movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
+                    return;
+                }
+
+            }
             // Beginings of castling rights
             // and double pawn advance
             //does nothing unless the piece is a rook, king or pawn
@@ -80,7 +93,6 @@ public class ChessBoardRep extends Board {
 
             // Simple check scenario checks if the piece that has moved checked king
             //@Todo discovery Check only possible with rooks, queen and bishop
-            int KingId;
             if (Color.WHITE == getTurn())
                 KingId = KingWId;
             else
@@ -161,7 +173,6 @@ public class ChessBoardRep extends Board {
         //make sure the piece can move in this way
         if(!piece.isValidMove(move))
             return false;
-
         //@todo implement pins, etc
         //return true here cause a knight can jump over pieces
         if(piece.toString().charAt(0) == 'N')
@@ -255,4 +266,13 @@ public class ChessBoardRep extends Board {
     public boolean endState(){
         return false;
     }
+
+    /**
+     * Returns if the player is in check
+     * @return
+     */
+    public boolean isInCheck() {
+        return incheck;
+    }
+
 }
