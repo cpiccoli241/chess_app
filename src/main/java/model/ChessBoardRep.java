@@ -9,6 +9,7 @@ public class ChessBoardRep extends Board {
     private static final int KingBId = -4;
     private boolean incheck = false;
     private ArrayList<Piece> piecesChecking = new ArrayList<>();
+    private ArrayList<Piece> piecesPinning = new ArrayList<>();
     public ChessBoardRep() {
         setTurn(Color.WHITE);
         setBoardRep(makeBoardInit());
@@ -81,7 +82,10 @@ public class ChessBoardRep extends Board {
                     movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
                     return;
                 }
-
+            }
+            for(Piece checkers:piecesChecking) {
+                piecesPinning.add(checkers);
+                piecesChecking.remove(checkers);
             }
             // Beginings of castling rights
             // and double pawn advance
