@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import util.PGNConverter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("Model-tier")
@@ -338,6 +339,10 @@ public class ChessBoardRepTest {
         bd.makeMove(PGNConverter.convertFromPGNToMove("pa7a6"));
         assertTrue(bd.isInCheck());
         assertTrue(bd.getTurn()==Color.BLACK);
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pc7c6"));
+        assertFalse(bd.isInCheck());
+        assertTrue(bd.getTurn()==Color.WHITE);
+
 
     }
     /*

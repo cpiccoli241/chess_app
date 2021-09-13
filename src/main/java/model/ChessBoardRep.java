@@ -89,6 +89,8 @@ public class ChessBoardRep extends Board {
             getPiece(getSquare(move.getEnd())).hasMoved();
 
             nextTurn();
+            if(incheck)
+                incheck=false;
             //@Todo check here
 
             // Simple check scenario checks if the piece that has moved checked king
