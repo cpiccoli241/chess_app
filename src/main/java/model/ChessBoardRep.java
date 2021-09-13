@@ -20,21 +20,21 @@ public class ChessBoardRep extends Board {
         }
         //add whites pieces
         putPiece(new Rook(1, Color.WHITE));
-        putPiece(new Knight(2, Color.WHITE));
+        putPiece(new Knight(2, Color.WHITE,new int[]{1,2}));
         putPiece(new Bishop(3, Color.WHITE));
         putPiece(new King(4, Color.WHITE));
         putPiece(new Queen(5, Color.WHITE));
         putPiece(new Bishop(6, Color.WHITE));
-        putPiece(new Knight(7, Color.WHITE));
+        putPiece(new Knight(7, Color.WHITE,new int[]{1,7}));
         putPiece(new Rook(8, Color.WHITE));
         //add whites pieces
         putPiece(new Rook(-1, Color.BLACK));
-        putPiece(new Knight(-2, Color.BLACK));
+        putPiece(new Knight(-2, Color.BLACK,new int[]{1,2}));
         putPiece(new Bishop(-3, Color.BLACK));
         putPiece(new King(-4, Color.BLACK));
         putPiece(new Queen(-5, Color.BLACK));
         putPiece(new Bishop(-6, Color.BLACK));
-        putPiece(new Knight(-7, Color.BLACK));
+        putPiece(new Knight(-7, Color.BLACK,new int[]{8,7}));
         putPiece(new Rook(-8, Color.BLACK));
     }
 
@@ -82,7 +82,7 @@ public class ChessBoardRep extends Board {
             else
                 KingId = KingBId;
 
-            if (isValidMove(new Move(move.getEnd(), getPiece(KingId).getPosition()))){
+            if (isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))){
                 incheck = true;
                 piecesChecking.add(getPiece(getSquare(move.getEnd())));
             }
@@ -107,7 +107,7 @@ public class ChessBoardRep extends Board {
      * @return
      */
     private Piece checkDiscovery(int[] emptySQ, int KingID){
-        Move mv = new Move(emptySQ, getPiece(KingID).getPosition());
+        Move mv = Move.MoveEndStart(emptySQ, getPiece(KingID).getPosition());
         int[] dir = mv.getDir();
         int pieceID = checkSQInDir(mv.getStart(),dir);
         // if pieceid isnonempty or is white no need to do anything else return
@@ -115,7 +115,7 @@ public class ChessBoardRep extends Board {
             return null;
         // ok so what if it is black
         // Check to see if it is valid for the oppenent to take their piece
-        if(isValidMove(new Move(getPiece(pieceID).getPosition(), getPiece(KingID).getPosition()))){
+        if(isValidMove(Move.MoveEndStart(getPiece(pieceID).getPosition(), getPiece(KingID).getPosition()))){
             return getPiece(pieceID);
         }
         return null;
@@ -130,11 +130,14 @@ public class ChessBoardRep extends Board {
      * @return the pieceid of the first nonempty piece
      */
     private int checkSQInDir(int[] start, int[] dir){
-        while(OnBoard(start)){
-            start[0] = start[0] + dir[0];
-            start[1] = start[1] + dir[1];
-            if(getSquare(start)!=0)
-                return getSquare(start);
+        int[] ours = Arrays.copyOf(start,2);
+        ours[0] = ours[0] + dir[0];
+        ours[1] = ours[1] + dir[1];
+        while(OnBoard(ours)){
+            if(getSquare(ours)!=0)
+                return getSquare(ours);
+            ours[0] = ours[0] + dir[0];
+            ours[1] = ours[1] + dir[1];
         }
         return 0;
     }

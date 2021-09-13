@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Piece {
@@ -52,10 +53,9 @@ public abstract class Piece {
      */
     public void hasMoved(){}
     public void move(int[] end){
-        position = end;
+        position = Arrays.copyOf(end,2);
     }
     public int[] getPosition(){
         return position;
     }
-
 }

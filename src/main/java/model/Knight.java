@@ -7,7 +7,9 @@ public class Knight extends Piece {
     public Knight(int id, Color col) {
         super(id, col);
     }
-
+    public Knight(int id, Color col, int[] position) {
+        super(id, col, position);
+    }
     @Override
     public List<Move> getCandidateMoves(int[] start) {
         return Arrays.asList(new Move(start,new int[]{-1,2}),

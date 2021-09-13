@@ -1,14 +1,30 @@
 package model;
 
+import java.util.Arrays;
+
 import static java.lang.Math.abs;
 
 public class Move {
-    private int[] start;
+    private int[] start = new int[2];
     private int[] end = new int[2];
     private int[] dir = new int[2];
+    public Move(int start1, int start2, int end1, int end2){
+        start[0] = start1;
+        start[1] = start2;
+        end[0] = end1;
+        end[1] = end2;
+        dir[0] = (end1-start1);
+        dir[1] = (end2 - start2);
+        if(dir[0] != 0)
+            dir[0] = dir[0]/abs(dir[0]);
+        dir[1] = end[1] - start[1];
+        if(dir[1] != 0)
+            dir[1] = dir[1]/abs(dir[1]);
+    }
     public Move(int[]start, int end1, int end2){
-        this.start = start;
-        this.end = new int[]{end1, end2};
+        this.start = Arrays.copyOf(start,2);
+        end[0]= end1;
+        end[1]=end2;
         dir[0] = end[0]-start[0];
         if(dir[0] != 0)
             dir[0] = dir[0]/abs(dir[0]);
@@ -27,7 +43,9 @@ public class Move {
         if(dir[1] != 0)
             dir[1] = dir[1]/abs(dir[1]);
     }
-
+    public static Move MoveEndStart(int[] start, int[] end){
+        return new Move(start[0],start[1], end[0], end[1]);
+    }
     public int[] getEnd() {
         return end;
     }

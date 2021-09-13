@@ -29,6 +29,6 @@ public class PGNConverter {
 
         int[] start = convertFromPGNToSquare(input.substring(1,3));
         int[] end = convertFromPGNToSquare(input.substring(3,5));
-        return new Move(start,end[0],end[1]);
+        return Move.MoveEndStart(start,end);
     }
 }
