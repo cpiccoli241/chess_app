@@ -13,6 +13,13 @@ public class Pawn extends Piece {
         else
             direction =1;
     }
+    public Pawn(int id,Color col, int[] position) {
+        super(id, col, position);
+        if (col == Color.BLACK)
+            direction = -1;
+        else
+            direction =1;
+    }
 
     @Override
     public List<Move> getCandidateMoves(int[] start) {

@@ -19,7 +19,7 @@ public abstract class Piece {
     public Piece(int id, Color col, int[] position){
         pieceID = id;
         this.col = col;
-        this.position = position;
+        this.position = Arrays.copyOf(position,2);
     }
 
     /**

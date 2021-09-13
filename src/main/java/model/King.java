@@ -6,8 +6,8 @@ import java.util.List;
 public class King extends Piece {
     private boolean hasmoved = false;
 
-    public King(int id, Color col) {
-        super(id, col, new int[]{1,4});
+    public King(int id, Color col, int[] position) {
+        super(id, col, position);
     }
 
     @Override

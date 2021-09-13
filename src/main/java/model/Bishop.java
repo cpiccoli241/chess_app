@@ -10,6 +10,9 @@ public class Bishop extends Piece {
     public Bishop(int id, Color col) {
         super(id, col);
     }
+    public Bishop(int id, Color col, int[] position) {
+        super(id, col, position);
+    }
 
     @Override
     /**

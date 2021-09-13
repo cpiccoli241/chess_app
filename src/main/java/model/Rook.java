@@ -9,7 +9,9 @@ public class Rook extends Piece {
     public Rook(int id, Color col) {
         super(id, col);
     }
-
+    public Rook(int id, Color col, int[] position) {
+        super(id, col, position);
+    }
     @Override
     public List<Move> getCandidateMoves(int[] start) {
         return Arrays.asList(

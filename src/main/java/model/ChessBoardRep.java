@@ -14,28 +14,32 @@ public class ChessBoardRep extends Board {
         setBoardRep(makeBoardInit());
         // adds the default emptyPiece
         putPiece(new EmptyPiece());
+        int[] pawnPosition = new int[2];
         for(int i = 1; i < 9; i++) {
-            putPiece(new Pawn(10 + i, Color.WHITE));
-            putPiece(new Pawn(-10 - i, Color.BLACK));
+            pawnPosition[1] = i;
+            pawnPosition[0] = 2;
+            putPiece(new Pawn(10 + i, Color.WHITE, pawnPosition));
+            pawnPosition[0] = 7;
+            putPiece(new Pawn(-10 - i, Color.BLACK, pawnPosition));
         }
         //add whites pieces
-        putPiece(new Rook(1, Color.WHITE));
+        putPiece(new Rook(1, Color.WHITE, new int[]{1,1}));
         putPiece(new Knight(2, Color.WHITE,new int[]{1,2}));
-        putPiece(new Bishop(3, Color.WHITE));
-        putPiece(new King(4, Color.WHITE));
-        putPiece(new Queen(5, Color.WHITE));
-        putPiece(new Bishop(6, Color.WHITE));
+        putPiece(new Bishop(3, Color.WHITE, new int[]{1,3}));
+        putPiece(new King(4, Color.WHITE, new int[]{8,4}));
+        putPiece(new Queen(5, Color.WHITE, new int[]{1,5}));
+        putPiece(new Bishop(6, Color.WHITE,new int[]{1,6}));
         putPiece(new Knight(7, Color.WHITE,new int[]{1,7}));
-        putPiece(new Rook(8, Color.WHITE));
+        putPiece(new Rook(8, Color.WHITE, new int[]{1,8}));
         //add whites pieces
-        putPiece(new Rook(-1, Color.BLACK));
-        putPiece(new Knight(-2, Color.BLACK,new int[]{1,2}));
-        putPiece(new Bishop(-3, Color.BLACK));
-        putPiece(new King(-4, Color.BLACK));
-        putPiece(new Queen(-5, Color.BLACK));
-        putPiece(new Bishop(-6, Color.BLACK));
+        putPiece(new Rook(-1, Color.BLACK, new int[]{8,1}));
+        putPiece(new Knight(-2, Color.BLACK,new int[]{8,2}));
+        putPiece(new Bishop(-3, Color.BLACK,new int[]{8,3}));
+        putPiece(new King(-4, Color.BLACK, new int[]{8,4}));
+        putPiece(new Queen(-5, Color.BLACK, new int[]{8,5}));
+        putPiece(new Bishop(-6, Color.BLACK,new int[]{8,6}));
         putPiece(new Knight(-7, Color.BLACK,new int[]{8,7}));
-        putPiece(new Rook(-8, Color.BLACK));
+        putPiece(new Rook(-8, Color.BLACK, new int[]{8,8}));
     }
 
     /**
@@ -158,7 +162,7 @@ public class ChessBoardRep extends Board {
         if(!piece.isValidMove(move))
             return false;
 
-        //@todo implement pins, checks, etc
+        //@todo implement pins, etc
         //return true here cause a knight can jump over pieces
         if(piece.toString().charAt(0) == 'N')
             return true;
