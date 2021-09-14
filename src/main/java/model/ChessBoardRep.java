@@ -71,23 +71,38 @@ public class ChessBoardRep extends Board {
 
         if(isValidMove(move)) {
             movePiece(move);
-            //check to see if the move prevents the check
+
             int KingId;
             if (Color.WHITE == getTurn())
                 KingId = KingWId;
             else
                 KingId = KingBId;
+            //check to see if the move prevents the check
+            //might be superfluous
             for(Piece checkers:piecesChecking){
                 if(isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
                     movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
                     return;
                 }
             }
-            for(Piece checkers:piecesChecking) {
-                piecesPinning.add(checkers);
-                piecesChecking.remove(checkers);
+            //check if the piece is pinned
+            for(Piece checkers:piecesPinning){
+                if(isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
+                    movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
+                    return;
+                }
             }
-            // Beginings of castling rights
+            // the checking pieces become pinning pieces (unless king moves see below)
+            if(getPiece(KingId).equals(getPiece(getSquare(move.getEnd())))){
+                piecesChecking.removeAll(piecesChecking);
+
+            }else{
+                piecesPinning.addAll(piecesChecking);
+                piecesChecking.removeAll(piecesChecking);
+            }
+            // @todo if the king is moved new pieces become pinned need to find those
+
+            // Beginnings of castling rights
             // and double pawn advance
             //does nothing unless the piece is a rook, king or pawn
             getPiece(getSquare(move.getEnd())).hasMoved();

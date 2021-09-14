@@ -386,6 +386,26 @@ public class ChessBoardRepTest {
         helper_test_move(bd,   "c6", "c5", 0, -16);
 
     }
+    @Test
+    public void testPieceRemainsPinned(){
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd2d4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd7d5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe2e4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe7e5"));
+
+        bd.makeMove(PGNConverter.convertFromPGNToMove("bf1b5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pc7c6"));
+
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa2a3"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa7a8"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("bb5a4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pc6c5"));
+
+        helper_test_move(bd,   "c6", "c5", -16, 0);
+
+    }
     /*
      *
      * Miscellaneous
