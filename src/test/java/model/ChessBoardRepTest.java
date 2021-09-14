@@ -375,7 +375,7 @@ public class ChessBoardRepTest {
         bd.makeMove(PGNConverter.convertFromPGNToMove("pd2d4"));
         bd.makeMove(PGNConverter.convertFromPGNToMove("pd7d5"));
         bd.makeMove(PGNConverter.convertFromPGNToMove("pe2e4"));
-        bd.makeMove(PGNConverter.convertFromPGNToMove("pc7e6"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pc7c6"));
 
         bd.makeMove(PGNConverter.convertFromPGNToMove("bf1b5"));
         bd.makeMove(PGNConverter.convertFromPGNToMove("pc6c5"));

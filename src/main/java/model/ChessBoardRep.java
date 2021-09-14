@@ -123,10 +123,18 @@ public class ChessBoardRep extends Board {
                 incheck = true;
                 piecesChecking.add(getPiece(getSquare(move.getEnd())));
             }
+            // only checks for 1 piece should be a collection @todo
             Piece checkingPiece = checkDiscovery(move.getStart(), KingId);
             if(checkingPiece != null) {
                 incheck = true;
                 piecesChecking.add(checkingPiece);
+            }
+            // test to see if the piece is pinning without check
+            // uses the isValidMove from the piece which does not check the board state just the way the piece can move
+            else if(getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))){
+                piecesPinning.add(getPiece(getSquare(move.getEnd())));
+            }else{
+                piecesPinning.remove(getPiece(getSquare(move.getEnd())));
             }
 
         }else
