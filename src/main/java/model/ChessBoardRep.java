@@ -27,7 +27,7 @@ public class ChessBoardRep extends Board {
         putPiece(new Rook(1, Color.WHITE, new int[]{1,1}));
         putPiece(new Knight(2, Color.WHITE,new int[]{1,2}));
         putPiece(new Bishop(3, Color.WHITE, new int[]{1,3}));
-        putPiece(new King(4, Color.WHITE, new int[]{8,4}));
+        putPiece(new King(4, Color.WHITE, new int[]{1,4}));
         putPiece(new Queen(5, Color.WHITE, new int[]{1,5}));
         putPiece(new Bishop(6, Color.WHITE,new int[]{1,6}));
         putPiece(new Knight(7, Color.WHITE,new int[]{1,7}));
@@ -124,6 +124,7 @@ public class ChessBoardRep extends Board {
                 piecesChecking.add(getPiece(getSquare(move.getEnd())));
             }
             // only checks for 1 piece should be a collection @todo
+
             Piece checkingPiece = checkDiscovery(move.getStart(), KingId);
             if(checkingPiece != null) {
                 incheck = true;
@@ -131,7 +132,7 @@ public class ChessBoardRep extends Board {
             }
             // test to see if the piece is pinning without check
             // uses the isValidMove from the piece which does not check the board state just the way the piece can move
-            else if(getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))){
+            else if(getPiece(getSquare(move.getEnd())).toString().charAt(0)!= 'K' && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))){
                 piecesPinning.add(getPiece(getSquare(move.getEnd())));
             }else{
                 piecesPinning.remove(getPiece(getSquare(move.getEnd())));

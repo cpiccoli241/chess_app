@@ -351,6 +351,21 @@ public class ChessBoardRepTest {
      *
      */
     @Test
+    public void kingMovesPin(){
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd2d4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd7d5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe2e4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe7e5"));
+
+        bd.makeMove(PGNConverter.convertFromPGNToMove("bf1b5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("ke8e7"));
+        helper_test_move(bd,   "e8", "e7", 0, -4);
+        // does not check to see if the piece is removed from checking pieces, or pinning pieces
+
+    }
+    @Test
     public void testPieceBlocksCheckBecomesPinned(){
         ChessBoardRep bd = new ChessBoardRep();
         PGNConverter.setup();

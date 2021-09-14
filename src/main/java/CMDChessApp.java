@@ -23,7 +23,7 @@ public class CMDChessApp {
         else
             System.out.println("Black Players Move!");
         String input = scin.nextLine();
-        //@todo support truePGN movement for now require start square id Pa2a3
+        //@todo support truePGN movement for now require start square id Pa2a3 captures not noted
 
         bd.makeMove(PGNConverter.convertFromPGNToMove(input));
     }
@@ -35,6 +35,12 @@ public class CMDChessApp {
         while (!gameBoard.endState()) {
             System.out.print(gameBoard.WhitePerspective());
             takeTurn(sc, gameBoard);
+        }
+        System.out.println("Checkmate!!!");
+        if(Color.WHITE==gameBoard.getTurn()){
+            System.out.println("Black Wins!");
+        }else{
+            System.out.println("White Wins!");
         }
     }
 }
