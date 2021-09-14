@@ -345,6 +345,22 @@ public class ChessBoardRepTest {
 
 
     }
+    @Test
+    public void kingMovesIntoCheck(){
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe2e4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe7e5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd2d4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pc7c6"));
+
+        bd.makeMove(PGNConverter.convertFromPGNToMove("bc1g5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("ke8e7"));
+        helper_test_move(bd,   "e8", "e7", -4, 0);
+        assertEquals(bd.getTurn(), Color.BLACK);
+        // does not check to see if the piece is removed from checking pieces, or pinning pieces
+
+    }
     /*
      *
      * tests for pins
