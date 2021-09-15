@@ -75,8 +75,8 @@ public class ChessBoardRep extends Board {
 
             int KingId;
             int cl = -1;
-            ArrayList<Piece> piecesChecking= piecesCheckingBlack;
-            ArrayList<Piece> piecesPinning=piecesPinningBlack;;
+            ArrayList<Piece> piecesChecking;
+            ArrayList<Piece> piecesPinning;;
             if (Color.WHITE == getTurn()) {
                 KingId = KingWId;
                  piecesChecking = piecesCheckingBlack;
@@ -156,7 +156,7 @@ public class ChessBoardRep extends Board {
                     incheck = true;
                     piecesChecking.add(getPiece(getSquare(move.getEnd())));
                 }
-                // only checks for 1 piece should be a collection @todo
+                // @todo only checks for 1 piece should be a collection/List
 
                 Piece checkingPiece = checkDiscovery(move.getStart(), KingId);
                 if (checkingPiece != null) {
