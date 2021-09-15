@@ -8,8 +8,10 @@ public class ChessBoardRep extends Board {
     private static final int KingWId = 4;
     private static final int KingBId = -4;
     private boolean incheck = false;
-    private ArrayList<Piece> piecesChecking = new ArrayList<>();
-    private ArrayList<Piece> piecesPinning = new ArrayList<>();
+    private ArrayList<Piece> piecesCheckingBlack = new ArrayList<>();
+    private ArrayList<Piece> piecesPinningBlack = new ArrayList<>();
+    private ArrayList<Piece> piecesCheckingWhite = new ArrayList<>();
+    private ArrayList<Piece> piecesPinningWhite = new ArrayList<>();
     public ChessBoardRep() {
         setTurn(Color.WHITE);
         setBoardRep(makeBoardInit());
@@ -70,74 +72,105 @@ public class ChessBoardRep extends Board {
             return;
 
         if(isValidMove(move)) {
-            movePiece(move);
 
             int KingId;
-            if (Color.WHITE == getTurn())
+            int cl = -1;
+            ArrayList<Piece> piecesChecking= piecesCheckingBlack;
+            ArrayList<Piece> piecesPinning=piecesPinningBlack;;
+            if (Color.WHITE == getTurn()) {
                 KingId = KingWId;
-            else
+                 piecesChecking = piecesCheckingBlack;
+                 piecesPinning = piecesPinningBlack;
+            }
+            else {
                 KingId = KingBId;
-            //check to see if the move prevents the check
-            //might be superfluous
-            for(Piece checkers:piecesChecking){
-                if(isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
-                    movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
-                    return;
+                cl=1;
+                piecesChecking = piecesCheckingWhite;
+                piecesPinning = piecesPinningWhite;
+            }
+
+            if(getSquare(move.getStart())==KingId) {
+                for (int i = 1; i < 9; i++) {
+                    if(isValidMove(Move.MoveEndStart(getPiece(i*cl).getPosition(), move.getEnd())) ||
+                            isValidMove(Move.MoveEndStart(getPiece((i+10)*cl).getPosition(), move.getEnd())))
+                        // king cant move into check escape
+                        return;
+                }
+                movePiece(move);
+                nextTurn();
+                piecesPinning.removeAll(piecesPinning);
+                // @todo if the king is moved new pieces become pinned need to find those
+                return;
+            }
+            else {
+                movePiece(move);
+
+                // stop the king from moving into check
+
+                //check to see if the move prevents the check
+                //might be superfluous
+                for (Piece checkers : piecesChecking) {
+                    if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
+                        movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
+                        return;
+                    }
+                }
+                //check if the piece is pinned
+                for (Piece checkers : piecesPinning) {
+                    if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
+                        movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
+                        return;
+                    }
+                }
+                // the checking pieces become pinning pieces (unless king moves see below)
+                if (getPiece(KingId).equals(getPiece(getSquare(move.getEnd())))) {
+                    piecesChecking.removeAll(piecesChecking);
+
+                } else {
+                    piecesPinning.addAll(piecesChecking);
+                    piecesChecking.removeAll(piecesChecking);
+                }
+
+
+                // Beginnings of castling rights
+                // and double pawn advance
+                //does nothing unless the piece is a rook, king or pawn
+                getPiece(getSquare(move.getEnd())).hasMoved();
+
+                nextTurn();
+                if (incheck)
+                    incheck = false;
+
+                // Simple check scenario checks if the piece that has moved checked king
+                if (Color.WHITE == getTurn()) {
+                    KingId = KingWId;
+                    piecesChecking = piecesCheckingBlack;
+                    piecesPinning = piecesPinningBlack;
+                }
+                else {
+                    KingId = KingBId;
+                    piecesChecking = piecesCheckingWhite;
+                    piecesPinning = piecesPinningWhite;
+                }
+                if (isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))) {
+                    incheck = true;
+                    piecesChecking.add(getPiece(getSquare(move.getEnd())));
+                }
+                // only checks for 1 piece should be a collection @todo
+
+                Piece checkingPiece = checkDiscovery(move.getStart(), KingId);
+                if (checkingPiece != null) {
+                    incheck = true;
+                    piecesChecking.add(checkingPiece);
+                }
+                // test to see if the piece is pinning without check
+                // uses the isValidMove from the piece which does not check the board state just the way the piece can move
+                else if (getPiece(getSquare(move.getEnd())).toString().charAt(0) != 'K' && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))) {
+                    piecesPinning.add(getPiece(getSquare(move.getEnd())));
+                } else {
+                    piecesPinning.remove(getPiece(getSquare(move.getEnd())));
                 }
             }
-            //check if the piece is pinned
-            for(Piece checkers:piecesPinning){
-                if(isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
-                    movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
-                    return;
-                }
-            }
-            // the checking pieces become pinning pieces (unless king moves see below)
-            if(getPiece(KingId).equals(getPiece(getSquare(move.getEnd())))){
-                piecesChecking.removeAll(piecesChecking);
-
-            }else{
-                piecesPinning.addAll(piecesChecking);
-                piecesChecking.removeAll(piecesChecking);
-            }
-            // @todo if the king is moved new pieces become pinned need to find those
-
-            // Beginnings of castling rights
-            // and double pawn advance
-            //does nothing unless the piece is a rook, king or pawn
-            getPiece(getSquare(move.getEnd())).hasMoved();
-
-            nextTurn();
-            if(incheck)
-                incheck=false;
-            //@Todo check here
-
-            // Simple check scenario checks if the piece that has moved checked king
-            //@Todo discovery Check only possible with rooks, queen and bishop
-            if (Color.WHITE == getTurn())
-                KingId = KingWId;
-            else
-                KingId = KingBId;
-
-            if (isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))){
-                incheck = true;
-                piecesChecking.add(getPiece(getSquare(move.getEnd())));
-            }
-            // only checks for 1 piece should be a collection @todo
-
-            Piece checkingPiece = checkDiscovery(move.getStart(), KingId);
-            if(checkingPiece != null) {
-                incheck = true;
-                piecesChecking.add(checkingPiece);
-            }
-            // test to see if the piece is pinning without check
-            // uses the isValidMove from the piece which does not check the board state just the way the piece can move
-            else if(getPiece(getSquare(move.getEnd())).toString().charAt(0)!= 'K' && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))){
-                piecesPinning.add(getPiece(getSquare(move.getEnd())));
-            }else{
-                piecesPinning.remove(getPiece(getSquare(move.getEnd())));
-            }
-
         }else
             //@todo throw an error?
             return;
