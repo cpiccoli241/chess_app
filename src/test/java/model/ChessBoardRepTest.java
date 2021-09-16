@@ -471,4 +471,21 @@ public class ChessBoardRepTest {
         bd.makeMove(PGNConverter.convertFromPGNToMove("pd2d3"));
         helper_test_move(bd,   "d2", "d3", 15, 0);
     }
+    @Test
+    public void testPawnPromotion(){
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa2a4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pg7g6"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa4a5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pg6g5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa5a6"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pg5g4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa6b7"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pg4g3"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pb7a8"));
+        assertTrue(bd.isWaitingOnPromotion());
+        bd.promotePiece("Q");
+        assertEquals("Q",bd.getPiece(18).toString());
+    }
 }
