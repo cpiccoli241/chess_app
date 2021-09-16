@@ -10,6 +10,8 @@ public class ChessBoardRep extends Board {
     private static final int KingWId = 4;
     private static final int KingBId = -4;
     private boolean incheck = false;
+    private boolean waitingOnPromotion = false;
+    private Piece pieceToPromote;
     private ArrayList<Piece> piecesCheckingBlack = new ArrayList<>();
     private ArrayList<Piece> piecesPinningBlack = new ArrayList<>();
     private ArrayList<Piece> piecesCheckingWhite = new ArrayList<>();
@@ -139,6 +141,13 @@ public class ChessBoardRep extends Board {
                 //does nothing unless the piece is a rook, king or pawn
                 getPiece(getSquare(move.getEnd())).hasMoved();
 
+                waitingOnPromotion = getPiece(getSquare(move.getEnd())).canPromote();
+                if(waitingOnPromotion){
+                    pieceToPromote = getPiece(getSquare(move.getEnd()));
+                }
+                //todo get some input from?
+
+
                 nextTurn();
                 if (incheck)
                     incheck = false;
@@ -180,10 +189,17 @@ public class ChessBoardRep extends Board {
 
 
     }
-    private void promotePiece(Piece piece){
-        if(piece.canPromote()){
-            Piece promoted = PGNConverter.convertFromStringToPiece(piece.toString(),piece.getColor(), piece.getPosition(), piece.getPieceID());
-            getPieces().put(piece.getPieceID(), promoted);
+
+    /**
+     * Checks to see if a piece can promote
+     * then promotes it to the string characterized by promoteTo
+     * @param promoteTo the string representation of new piece type
+     *
+     */
+    public void promotePiece(String promoteTo){
+        if(pieceToPromote.canPromote()){
+            Piece promoted = PGNConverter.convertFromStringToPiece(promoteTo,pieceToPromote.getColor(), pieceToPromote.getPosition(), pieceToPromote.getPieceID());
+            getPieces().put(pieceToPromote.getPieceID(), promoted);
         }
     }
     /**
@@ -346,4 +362,12 @@ public class ChessBoardRep extends Board {
         return incheck;
     }
 
+    /**
+     * Returns true if the board is waiting on what to promote to
+     * false otherwise
+     * @return waitingOnPromotion
+     */
+    public boolean isWaitingOnPromotion() {
+        return waitingOnPromotion;
+    }
 }

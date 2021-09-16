@@ -35,6 +35,11 @@ public class CMDChessApp {
         while (!gameBoard.endState()) {
             System.out.print(gameBoard.WhitePerspective());
             takeTurn(sc, gameBoard);
+            while(gameBoard.isWaitingOnPromotion()){
+                System.out.println("Enter Q, B, N, R: ");
+                String input = sc.nextLine();
+                gameBoard.promotePiece(input);
+            }
         }
         System.out.println("Checkmate!!!");
         if(Color.WHITE==gameBoard.getTurn()){
