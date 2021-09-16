@@ -165,7 +165,7 @@ public class ChessBoardRep extends Board {
                 }
                 // test to see if the piece is pinning without check
                 // uses the isValidMove from the piece which does not check the board state just the way the piece can move
-                else if (getPiece(getSquare(move.getEnd())).toString().charAt(0) != 'K' && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition(),getPiece(0)))) {
+                else if (getPiece(getSquare(move.getEnd())).isKing() && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition(),getPiece(0)))) {
                     piecesPinning.add(getPiece(getSquare(move.getEnd())));
                 } else {
                     piecesPinning.remove(getPiece(getSquare(move.getEnd())));
@@ -238,10 +238,10 @@ public class ChessBoardRep extends Board {
             return false;
         //@todo implement pins, etc
         //return true here cause a knight can jump over pieces
-        if(piece.toString().charAt(0) == 'N')
+        if(piece.isKnight())
             return true;
         //pawn capture case
-        if(piece.toString().charAt(0)=='P')
+        if(piece.isPawn())
             if(move.getDir()[1] != 0) {
                 if (getSquare(move.getEnd()) == 0)
                     return false;

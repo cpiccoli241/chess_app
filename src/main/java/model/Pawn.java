@@ -58,4 +58,8 @@ public class Pawn extends Piece {
     public void hasMoved(){
         hasMoved = true;
     }
+    @Override
+    public boolean isPawn(){
+        return true;
+    }
 }
