@@ -78,4 +78,7 @@ public abstract class Piece {
     public int[] getPosition(){
         return position;
     }
+    public boolean canPromote(){
+        return false;
+    }
 }

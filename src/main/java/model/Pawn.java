@@ -23,13 +23,13 @@ public class Pawn extends Piece {
 
     /**
      * If the Pawn Can promote to another piece
-     * @param row
      * @return
      */
-    public boolean canPromote(int row){
-        if(getColor()==Color.WHITE&&row==8){
+    @Override
+    public boolean canPromote(){
+        if(getColor()==Color.WHITE&&getPosition()[0] ==8){
             return true;
-        }else if(row==1){
+        }else if(getPosition()[0] == 1){
             return true;
         }else
             return false;

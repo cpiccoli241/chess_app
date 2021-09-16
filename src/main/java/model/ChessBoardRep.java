@@ -1,4 +1,6 @@
 package model;
+import util.PGNConverter;
+
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -156,8 +158,8 @@ public class ChessBoardRep extends Board {
                     incheck = true;
                     piecesChecking.add(getPiece(getSquare(move.getEnd())));
                 }
-                // @todo only checks for 1 piece should be a collection/List
 
+                // @todo only checks for 1 piece should be a collection/List
                 Piece checkingPiece = checkDiscovery(move.getStart(), KingId);
                 if (checkingPiece != null) {
                     incheck = true;
@@ -178,7 +180,12 @@ public class ChessBoardRep extends Board {
 
 
     }
-
+    private void promotePiece(Piece piece){
+        if(piece.canPromote()){
+            Piece promoted = PGNConverter.convertFromStringToPiece(piece.toString(),piece.getColor(), piece.getPosition(), piece.getPieceID());
+            getPieces().put(piece.getPieceID(), promoted);
+        }
+    }
     /**
      * Checks the direction the piece is in of the king
      * notable it must be [1,0] [-1,1], [1,1] or [0,1] vector direction of the king

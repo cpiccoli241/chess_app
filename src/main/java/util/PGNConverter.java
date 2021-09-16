@@ -29,7 +29,32 @@ public class PGNConverter {
         PGNConvert.put('g',2);
         PGNConvert.put('h',1);
     }
-
+    public static Piece convertFromStringToPiece(String name, Color cl, int[] position, int id){
+        Piece moving;
+        switch (name.charAt(0)) {
+            case 'P':
+                moving = new Pawn(id, cl, position);
+                break;
+            case 'R':
+                moving = new Rook(id, cl, position);
+                break;
+            case 'N':
+                moving = new Knight(id, cl, position);
+                break;
+            case 'B':
+                moving = new Bishop(id, cl, position);
+                break;
+            case 'Q':
+                moving = new Queen(id, cl, position);
+                break;
+            case 'K':
+                moving = new King(id, cl, position);
+                break;
+            default:
+                moving = new EmptyPiece();
+        }
+        return moving;
+    }
     public static int[] convertFromPGNToSquare(String input){
         return new int[]{Integer.parseInt(input.substring(1, 2)), PGNConvert.get(input.charAt(0))};
     }
