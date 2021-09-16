@@ -165,7 +165,8 @@ public class ChessBoardRep extends Board {
                 }
                 // test to see if the piece is pinning without check
                 // uses the isValidMove from the piece which does not check the board state just the way the piece can move
-                else if (getPiece(getSquare(move.getEnd())).isKing() && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition(),getPiece(0)))) {
+                else if (!getPiece(getSquare(move.getEnd())).isKing()
+                        && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition(),getPiece(0)))) {
                     piecesPinning.add(getPiece(getSquare(move.getEnd())));
                 } else {
                     piecesPinning.remove(getPiece(getSquare(move.getEnd())));
