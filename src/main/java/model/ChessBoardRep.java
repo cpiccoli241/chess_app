@@ -91,8 +91,8 @@ public class ChessBoardRep extends Board {
 
             if(getSquare(move.getStart())==KingId) {
                 for (int i = 1; i < 9; i++) {
-                    if(isValidMove(Move.MoveEndStart(getPiece(i*cl).getPosition(), move.getEnd())) ||
-                            isValidMove(Move.MoveEndStart(getPiece((i+10)*cl).getPosition(), move.getEnd())))
+                    if(isValidMove(Move.MoveEndStart(getPiece(i*cl).getPosition(), move.getEnd(),getPiece(i*cl))) ||
+                            isValidMove(Move.MoveEndStart(getPiece((i+10)*cl).getPosition(), move.getEnd(),getPiece((i+10)*cl))))
                         // king cant move into check escape
                         return;
                 }
@@ -110,15 +110,15 @@ public class ChessBoardRep extends Board {
                 //check to see if the move prevents the check
                 //might be superfluous
                 for (Piece checkers : piecesChecking) {
-                    if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
-                        movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
+                    if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition(),checkers))) {
+                        movePiece(Move.MoveEndStart(move.getEnd(), move.getStart(),checkers));
                         return;
                     }
                 }
                 //check if the piece is pinned
                 for (Piece checkers : piecesPinning) {
-                    if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition()))) {
-                        movePiece(Move.MoveEndStart(move.getEnd(), move.getStart()));
+                    if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition(), checkers))) {
+                        movePiece(Move.MoveEndStart(move.getEnd(), move.getStart(),checkers));
                         return;
                     }
                 }
@@ -152,7 +152,7 @@ public class ChessBoardRep extends Board {
                     piecesChecking = piecesCheckingWhite;
                     piecesPinning = piecesPinningWhite;
                 }
-                if (isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))) {
+                if (isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition(),getPiece(KingId)))) {
                     incheck = true;
                     piecesChecking.add(getPiece(getSquare(move.getEnd())));
                 }
@@ -165,7 +165,7 @@ public class ChessBoardRep extends Board {
                 }
                 // test to see if the piece is pinning without check
                 // uses the isValidMove from the piece which does not check the board state just the way the piece can move
-                else if (getPiece(getSquare(move.getEnd())).toString().charAt(0) != 'K' && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition()))) {
+                else if (getPiece(getSquare(move.getEnd())).toString().charAt(0) != 'K' && getPiece(getSquare(move.getEnd())).isValidMove(Move.MoveEndStart(move.getEnd(), getPiece(KingId).getPosition(),getPiece(0)))) {
                     piecesPinning.add(getPiece(getSquare(move.getEnd())));
                 } else {
                     piecesPinning.remove(getPiece(getSquare(move.getEnd())));
@@ -186,7 +186,7 @@ public class ChessBoardRep extends Board {
      * @return
      */
     private Piece checkDiscovery(int[] emptySQ, int KingID){
-        Move mv = Move.MoveEndStart(emptySQ, getPiece(KingID).getPosition());
+        Move mv = Move.MoveEndStart(emptySQ, getPiece(KingID).getPosition(), getPiece(0));
         int[] dir = mv.getDir();
         int pieceID = checkSQInDir(mv.getStart(),dir);
         // if pieceid isnonempty or is white no need to do anything else return
@@ -194,7 +194,7 @@ public class ChessBoardRep extends Board {
             return null;
         // ok so what if it is black
         // Check to see if it is valid for the oppenent to take their piece
-        if(isValidMove(Move.MoveEndStart(getPiece(pieceID).getPosition(), getPiece(KingID).getPosition()))){
+        if(isValidMove(Move.MoveEndStart(getPiece(pieceID).getPosition(), getPiece(KingID).getPosition(),getPiece(0)))){
             return getPiece(pieceID);
         }
         return null;

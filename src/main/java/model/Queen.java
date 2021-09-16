@@ -12,7 +12,10 @@ public class Queen extends Piece {
     public Queen(int id, Color col, int[] position) {
         super(id, col, position);
     }
-
+    @Override
+    public boolean isQueen(){
+        return true;
+    }
     @Override
     public List<Move> getCandidateMoves(int[] start) {
         return Arrays.asList(

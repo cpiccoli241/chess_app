@@ -13,6 +13,10 @@ public class Rook extends Piece {
         super(id, col, position);
     }
     @Override
+    public boolean isRook(){
+        return true;
+    }
+    @Override
     public List<Move> getCandidateMoves(int[] start) {
         return Arrays.asList(
                 new Move(start,new int[]{2-start[0],0}),

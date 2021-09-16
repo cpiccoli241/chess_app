@@ -11,6 +11,10 @@ public class Knight extends Piece {
         super(id, col, position);
     }
     @Override
+    public boolean isKnight(){
+        return true;
+    }
+    @Override
     public List<Move> getCandidateMoves(int[] start) {
         return Arrays.asList(new Move(start,new int[]{-1,2}),
                 new Move(start,new int[]{1,2}),

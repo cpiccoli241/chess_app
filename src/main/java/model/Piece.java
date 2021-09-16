@@ -21,7 +21,27 @@ public abstract class Piece {
         this.col = col;
         this.position = Arrays.copyOf(position,2);
     }
-
+    public boolean isKing(){
+        return false;
+    }
+    public boolean isPawn(){
+        return false;
+    }
+    public boolean isQueen(){
+        return false;
+    }
+    public boolean isKnight(){
+        return false;
+    }
+    public boolean isBishop(){
+        return false;
+    }
+    public boolean isRook(){
+        return false;
+    }
+    public boolean isEmpty(){
+        return false;
+    }
     /**
      * Gets the Color of the Piece
      * @return col

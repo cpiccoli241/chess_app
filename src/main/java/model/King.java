@@ -9,7 +9,10 @@ public class King extends Piece {
     public King(int id, Color col, int[] position) {
         super(id, col, position);
     }
-
+    @Override
+    public boolean isKing(){
+        return true;
+    }
     @Override
     public List<Move> getCandidateMoves(int[] start) {
         return Arrays.asList(new Move(start,new int[]{-1,2}),

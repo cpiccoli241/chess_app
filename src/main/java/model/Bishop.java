@@ -13,7 +13,10 @@ public class Bishop extends Piece {
     public Bishop(int id, Color col, int[] position) {
         super(id, col, position);
     }
-
+    @Override
+    public boolean isBishop(){
+        return true;
+    }
     @Override
     /**
      * Not usable rn @todo

@@ -21,6 +21,19 @@ public class Pawn extends Piece {
             direction =1;
     }
 
+    /**
+     * If the Pawn Can promote to another piece
+     * @param row
+     * @return
+     */
+    public boolean canPromote(int row){
+        if(getColor()==Color.WHITE&&row==8){
+            return true;
+        }else if(row==1){
+            return true;
+        }else
+            return false;
+    }
     @Override
     public List<Move> getCandidateMoves(int[] start) {
         Move[] moves;

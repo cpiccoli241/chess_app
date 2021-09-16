@@ -8,7 +8,8 @@ public class Move {
     private int[] start = new int[2];
     private int[] end = new int[2];
     private int[] dir = new int[2];
-    public Move(int start1, int start2, int end1, int end2){
+    Piece tomove;
+    public Move(int start1, int start2, int end1, int end2, Piece tomove){
         start[0] = start1;
         start[1] = start2;
         end[0] = end1;
@@ -20,6 +21,7 @@ public class Move {
         dir[1] = end[1] - start[1];
         if(dir[1] != 0)
             dir[1] = dir[1]/abs(dir[1]);
+        this.tomove=tomove;
     }
     public Move(int[]start, int end1, int end2){
         this.start = Arrays.copyOf(start,2);
@@ -43,8 +45,8 @@ public class Move {
         if(dir[1] != 0)
             dir[1] = dir[1]/abs(dir[1]);
     }
-    public static Move MoveEndStart(int[] start, int[] end){
-        return new Move(start[0],start[1], end[0], end[1]);
+    public static Move MoveEndStart(int[] start, int[] end, Piece toMove){
+        return new Move(start[0],start[1], end[0], end[1], toMove);
     }
     public int[] getEnd() {
         return end;

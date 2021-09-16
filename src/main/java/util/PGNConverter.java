@@ -1,6 +1,15 @@
 package util;
 
+import model.Bishop;
+import model.Color;
+import model.EmptyPiece;
+import model.King;
+import model.Knight;
 import model.Move;
+import model.Pawn;
+import model.Piece;
+import model.Queen;
+import model.Rook;
 
 import java.util.HashMap;
 
@@ -27,8 +36,36 @@ public class PGNConverter {
 
     public static Move convertFromPGNToMove(String input){
 
+        return convertFromPGNToMove(input, Color.BLACK);
+    }
+    public static Move convertFromPGNToMove(String input, Color cl){
+
         int[] start = convertFromPGNToSquare(input.substring(1,3));
         int[] end = convertFromPGNToSquare(input.substring(3,5));
-        return Move.MoveEndStart(start,end);
+        Piece moving;
+        switch (input.charAt(0)) {
+            case 'P':
+                moving = new Pawn(99, cl, start);
+                break;
+            case 'R':
+                moving = new Rook(99, cl, start);
+                break;
+            case 'N':
+                moving = new Knight(99, cl, start);
+                break;
+            case 'B':
+                moving = new Bishop(99, cl, start);
+                break;
+            case 'Q':
+                moving = new Queen(99, cl, start);
+                break;
+            case 'K':
+                moving = new King(99, cl, start);
+                break;
+            default:
+                moving = new EmptyPiece();
+
+        }
+        return Move.MoveEndStart(start,end,moving);
     }
 }
