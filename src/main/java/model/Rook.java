@@ -17,22 +17,22 @@ public class Rook extends Piece {
         return true;
     }
     @Override
-    public List<Move> getCandidateMoves(int[] start) {
+    public List<Move> getCandidateMoves() {
         return Arrays.asList(
-                new Move(start,new int[]{2-start[0],0}),
-                new Move(start,new int[]{3-start[0],0}),
-                new Move(start,new int[]{4-start[0],0}),
-                new Move(start,new int[]{5-start[0],0}),
-                new Move(start,new int[]{6-start[0],0}),
-                new Move(start,new int[]{7-start[0],0}),
-                new Move(start,new int[]{8-start[0],0}),
-                new Move(start,new int[]{0,2-start[1]}),
-                new Move(start,new int[]{0,3-start[1]}),
-                new Move(start,new int[]{0,4-start[1]}),
-                new Move(start,new int[]{0,5-start[1]}),
-                new Move(start,new int[]{0,6-start[1]}),
-                new Move(start,new int[]{0,7-start[1]}),
-                new Move(start,new int[]{0,1-start[1]})
+                new Move(getPosition(),new int[]{2-getPosition()[0],0}),
+                new Move(getPosition(),new int[]{3-getPosition()[0],0}),
+                new Move(getPosition(),new int[]{4-getPosition()[0],0}),
+                new Move(getPosition(),new int[]{5-getPosition()[0],0}),
+                new Move(getPosition(),new int[]{6-getPosition()[0],0}),
+                new Move(getPosition(),new int[]{7-getPosition()[0],0}),
+                new Move(getPosition(),new int[]{8-getPosition()[0],0}),
+                new Move(getPosition(),new int[]{0,2-getPosition()[1]}),
+                new Move(getPosition(),new int[]{0,3-getPosition()[1]}),
+                new Move(getPosition(),new int[]{0,4-getPosition()[1]}),
+                new Move(getPosition(),new int[]{0,5-getPosition()[1]}),
+                new Move(getPosition(),new int[]{0,6-getPosition()[1]}),
+                new Move(getPosition(),new int[]{0,7-getPosition()[1]}),
+                new Move(getPosition(),new int[]{0,1-getPosition()[1]})
                 );
     }
     @Override

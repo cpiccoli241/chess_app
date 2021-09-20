@@ -12,7 +12,7 @@ public class EmptyPiece extends Piece {
         return true;
     }
     @Override
-    public List<Move> getCandidateMoves(int[] start) {
+    public List<Move> getCandidateMoves() {
         return Collections.emptyList();
     }
     @Override
