@@ -63,9 +63,13 @@ public class Move {
 
     @Override
     public boolean equals(Object o) {
-        Move other = (Move) o;
-        return end[0] == other.end[0] && end[1] == other.end[1] &&
-                start[1] == other.start[1] && start[0] == other.start[0];
+        if(o instanceof Move) {
+            Move other = (Move) o;
+            return end[0] == other.end[0] && end[1] == other.end[1] &&
+                    start[1] == other.start[1] && start[0] == other.start[0];
+        } else{
+            return false;
+        }
     }
 
     public int[] getDir() {
