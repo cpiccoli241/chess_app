@@ -61,9 +61,9 @@ public abstract class Piece {
      * in a array form
      * @return array
      */
-    public abstract List<Move> getCandidateMoves(int[] start);
+    public abstract List<Move> getCandidateMoves();
     public boolean isValidMove(Move move){
-        return getCandidateMoves(move.getStart()).contains(move);
+        return getCandidateMoves().contains(move);
     }
 
     /**

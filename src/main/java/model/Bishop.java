@@ -21,35 +21,35 @@ public class Bishop extends Piece {
     /**
      * Not usable rn @todo
      */
-    public List<Move> getCandidateMoves(int[] start) {
+    public List<Move> getCandidateMoves() {
         List<Move> moves = new ArrayList<>();
-        int[] end = Arrays.copyOf(start,2);
+        int[] end = Arrays.copyOf(getPosition(),2);
         // very grossly find all the bishop moves
         while (end[0] <= ChessBoardRep.BOARD_LENGTH && end[1] <= ChessBoardRep.BOARD_LENGTH) {
             end[0] = end[0]+1;
             end[1]= end[1] +1;
-            moves.add(new Move(start, end));
+            moves.add(new Move(getPosition(), end));
         }
 
-        end = Arrays.copyOf(start,2);
+        end = Arrays.copyOf(getPosition(),2);
         while (end[0] > 0 && end[1] > 0) {
             end[0] = end[0]-1;
             end[1]= end[1] -1;
-            moves.add(new Move(start, end));
+            moves.add(new Move(getPosition(), end));
         }
 
-        end = Arrays.copyOf(start,2);
+        end = Arrays.copyOf(getPosition(),2);
         while (end[0] <= ChessBoardRep.BOARD_LENGTH && end[1] > 0) {
             end[0] = end[0]+1;
             end[1]= end[1] -1;
-            moves.add(new Move(start, end));
+            moves.add(new Move(getPosition(), end));
         }
 
-        end = Arrays.copyOf(start,2);
+        end = Arrays.copyOf(getPosition(),2);
         while (end[0] > 0 && end[1] <= ChessBoardRep.BOARD_LENGTH) {
             end[0] = end[0]+1;
             end[1]= end[1] -1;
-            moves.add(new Move(start, end));
+            moves.add(new Move(getPosition(), end));
         }
         return moves;
     }

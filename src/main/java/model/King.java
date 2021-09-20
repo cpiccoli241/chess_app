@@ -14,16 +14,16 @@ public class King extends Piece {
         return true;
     }
     @Override
-    public List<Move> getCandidateMoves(int[] start) {
-        return Arrays.asList(new Move(start,new int[]{-1,2}),
-                new Move(start,new int[]{1,0}),
-                new Move(start,new int[]{0,1}),
-                new Move(start,new int[]{-1,0}),
-                new Move(start,new int[]{0,-1}),
-                new Move(start,new int[]{1,1}),
-                new Move(start,new int[]{-1,1}),
-                new Move(start,new int[]{-1,-1}),
-                new Move(start,new int[]{1,-1})
+    public List<Move> getCandidateMoves() {
+        return Arrays.asList(new Move(getPosition(),new int[]{-1,2}),
+                new Move(getPosition(),new int[]{1,0}),
+                new Move(getPosition(),new int[]{0,1}),
+                new Move(getPosition(),new int[]{-1,0}),
+                new Move(getPosition(),new int[]{0,-1}),
+                new Move(getPosition(),new int[]{1,1}),
+                new Move(getPosition(),new int[]{-1,1}),
+                new Move(getPosition(),new int[]{-1,-1}),
+                new Move(getPosition(),new int[]{1,-1})
         );
     }
 

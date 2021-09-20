@@ -15,15 +15,15 @@ public class Knight extends Piece {
         return true;
     }
     @Override
-    public List<Move> getCandidateMoves(int[] start) {
-        return Arrays.asList(new Move(start,new int[]{-1,2}),
-                new Move(start,new int[]{1,2}),
-                new Move(start,new int[]{2,-1}),
-                new Move(start,new int[]{2,1}),
-                new Move(start,new int[]{-1,-2}),
-                new Move(start,new int[]{1,-2}),
-                new Move(start,new int[]{-2,-1}),
-                new Move(start,new int[]{-2,1}));
+    public List<Move> getCandidateMoves() {
+        return Arrays.asList(new Move(getPosition(),new int[]{-1,2}),
+                new Move(getPosition(),new int[]{1,2}),
+                new Move(getPosition(),new int[]{2,-1}),
+                new Move(getPosition(),new int[]{2,1}),
+                new Move(getPosition(),new int[]{-1,-2}),
+                new Move(getPosition(),new int[]{1,-2}),
+                new Move(getPosition(),new int[]{-2,-1}),
+                new Move(getPosition(),new int[]{-2,1}));
     }
     @Override
     public String toString(){

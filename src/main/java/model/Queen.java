@@ -17,7 +17,8 @@ public class Queen extends Piece {
         return true;
     }
     @Override
-    public List<Move> getCandidateMoves(int[] start) {
+    public List<Move> getCandidateMoves() {
+        int[] start = getPosition();
         return Arrays.asList(
                 new Move(start,new int[]{2-start[0],0}),
                 new Move(start,new int[]{3-start[0],0}),
