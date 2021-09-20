@@ -4,6 +4,7 @@ import util.PGNConverter;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ChessBoardRep extends Board {
     public static final int BOARD_LENGTH = 8;
@@ -113,19 +114,15 @@ public class ChessBoardRep extends Board {
 
                 //check to see if the move prevents the check
                 //might be superfluous
-                for (Piece checkers : piecesChecking) {
-                    if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition(),checkers))) {
-                        movePiece(Move.MoveEndStart(move.getEnd(), move.getStart(),checkers));
-                        return;
-                    }
+                if(inCheck(piecesChecking, KingId, move)){
+                    return;
                 }
+
                 //check if the piece is pinned
-                for (Piece checkers : piecesPinning) {
-                    if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition(), checkers))) {
-                        movePiece(Move.MoveEndStart(move.getEnd(), move.getStart(),checkers));
-                        return;
-                    }
+                if(isPinned(piecesPinning, KingId, move)){
+                    return;
                 }
+
                 // the checking pieces become pinning pieces (unless king moves see below)
                 if (getPiece(KingId).equals(getPiece(getSquare(move.getEnd())))) {
                     piecesChecking.removeAll(piecesChecking);
@@ -190,6 +187,39 @@ public class ChessBoardRep extends Board {
 
     }
 
+    /**
+     * Helper Function to find Pinned Pieces
+     * @param piecesPinning
+     * @param KingId
+     * @param move
+     * @return
+     */
+    private boolean isPinned(List<Piece> piecesPinning, int KingId, Move move){
+        for (Piece checkers : piecesPinning) {
+            if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition(), checkers))) {
+                movePiece(Move.MoveEndStart(move.getEnd(), move.getStart(),checkers));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Helper function for Checked Pieces
+     * @param piecesChecking
+     * @param KingId
+     * @param move
+     * @return
+     */
+    private boolean inCheck(List<Piece> piecesChecking, int KingId, Move move){
+        for (Piece checkers : piecesChecking) {
+            if (isValidMove(Move.MoveEndStart(checkers.getPosition(), getPiece(KingId).getPosition(),checkers))) {
+                movePiece(Move.MoveEndStart(move.getEnd(), move.getStart(),checkers));
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Checks to see if a piece can promote
      * then promotes it to the string characterized by promoteTo
@@ -351,6 +381,30 @@ public class ChessBoardRep extends Board {
      * @return if the game is over
      */
     public boolean endState(){
+        if(isInCheck()){
+            return Checkmate();
+        }else{
+        return Stalemate();
+        }
+    }
+    private boolean Checkmate(){
+        int cl = 0;
+        if(getTurn()==Color.WHITE)
+            cl = 1;
+        else
+            cl = -1;
+
+        int[] pieceIds = {1,2,3,4,5,6,7,8,11,12,13,14,15,16,17,18};
+        for(int id:pieceIds){
+            List<Move> moves = getPiece(id*cl).getCandidateMoves();
+            for(Move mv:moves){
+                if(isValidMove(mv))
+                    return false;
+            }
+        }
+        return true;
+    }
+    private boolean Stalemate(){
         return false;
     }
 
