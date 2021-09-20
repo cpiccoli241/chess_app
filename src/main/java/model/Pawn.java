@@ -42,14 +42,14 @@ public class Pawn extends Piece {
         if (hasMoved == false) {
             //has the extra space pawn move
             moves = new Move[]{new Move(getPosition(), new int[]{2 * direction, 0}),
-                    new Move(getPosition(), new int[]{1 * direction, 0}),
-                    new Move(getPosition(), new int[]{1 * direction, 1}),
-                    new Move(getPosition(), new int[]{1 * direction, -1})};
+                    new Move(getPosition(), new int[]{direction, 0}),
+                    new Move(getPosition(), new int[]{direction, 1}),
+                    new Move(getPosition(), new int[]{direction, -1})};
         } else
             // does not have the extra space pawn move
-            moves = new Move[]{new Move(getPosition(), new int[]{1 * direction, 0}),
-                    new Move(getPosition(), new int[]{1 * direction, 1}),
-                    new Move(getPosition(), new int[]{1 * direction, -1})};
+            moves = new Move[]{new Move(getPosition(), new int[]{direction, 0}),
+                    new Move(getPosition(), new int[]{direction, 1}),
+                    new Move(getPosition(), new int[]{direction, -1})};
         return Arrays.asList(moves);
     }
 
