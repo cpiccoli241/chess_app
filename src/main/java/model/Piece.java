@@ -12,57 +12,73 @@ public abstract class Piece {
     private int pieceID;
     private Color col;
     private int[] position;
-    public Piece(int id, Color col){
+
+    public Piece(int id, Color col) {
         pieceID = id;
         this.col = col;
     }
-    public Piece(int id, Color col, int[] position){
+
+    public Piece(int id, Color col, int[] position) {
         pieceID = id;
         this.col = col;
-        this.position = Arrays.copyOf(position,2);
+        this.position = Arrays.copyOf(position, 2);
     }
-    public boolean isKing(){
+
+    public boolean isKing() {
         return false;
     }
-    public boolean isPawn(){
+
+    public boolean isPawn() {
         return false;
     }
-    public boolean isQueen(){
+
+    public boolean isQueen() {
         return false;
     }
-    public boolean isKnight(){
+
+    public boolean isKnight() {
         return false;
     }
-    public boolean isBishop(){
+
+    public boolean isBishop() {
         return false;
     }
-    public boolean isRook(){
+
+    public boolean isRook() {
         return false;
     }
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return false;
     }
+
     /**
      * Gets the Color of the Piece
+     *
      * @return col
      */
     public Color getColor() {
         return col;
     }
+
     /**
      * Gets the ID of the Piece
+     *
      * @return pieceID
      */
     public int getPieceID() {
         return pieceID;
     }
+
     /**
      * Gets the possible moves for the piece
      * in a array form
+     *
      * @return array
      */
     public abstract List<Move> getCandidateMoves();
-    public boolean isValidMove(Move move){
+
+    public boolean isValidMove(Move move) {
         return getCandidateMoves().contains(move);
     }
 
@@ -71,14 +87,18 @@ public abstract class Piece {
      * King, Pawn, and Rook to assure castling rights and
      * double pawn advance
      */
-    public void hasMoved(){}
-    public void move(int[] end){
-        position = Arrays.copyOf(end,2);
+    public void hasMoved() {
     }
-    public int[] getPosition(){
+
+    public void move(int[] end) {
+        position = Arrays.copyOf(end, 2);
+    }
+
+    public int[] getPosition() {
         return position;
     }
-    public boolean canPromote(){
+
+    public boolean canPromote() {
         return false;
     }
 }

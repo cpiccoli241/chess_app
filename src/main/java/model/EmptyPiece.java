@@ -7,16 +7,19 @@ public class EmptyPiece extends Piece {
     public EmptyPiece() {
         super(0, Color.BLANK);
     }
+
     @Override
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return true;
     }
+
     @Override
     public List<Move> getCandidateMoves() {
         return Collections.emptyList();
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return " ";
     }
 }
