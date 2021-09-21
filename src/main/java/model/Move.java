@@ -8,7 +8,7 @@ public class Move {
     private int[] start = new int[2];
     private int[] end = new int[2];
     private int[] dir = new int[2];
-    Piece tomove;
+    private Piece tomove;
 
     public Move(int start1, int start2, int end1, int end2, Piece tomove) {
         start[0] = start1;
@@ -78,5 +78,11 @@ public class Move {
 
     public Move reverse() {
         return Move.MoveEndStart(end, start, tomove);
+    }
+    public Piece getPiece(){
+        return tomove;
+    }
+    public void setPiece(Piece piece){
+        tomove = piece;
     }
 }

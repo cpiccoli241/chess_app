@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.lang.StrictMath.abs;
+
 public class ChessBoardRep extends Board {
     public static final int BOARD_LENGTH = 8;
     private static final int KingWId = 4;
@@ -20,6 +22,7 @@ public class ChessBoardRep extends Board {
     private ArrayList<Piece> piecesPinningWhite = new ArrayList<>();
     private HashMap<Move, Boolean> validityOfMoves = new HashMap<>();
     private Color winner = Color.BLANK;
+    private Piece enpassanted = null;
 
     public ChessBoardRep() {
         setTurn(Color.WHITE);
@@ -79,17 +82,16 @@ public class ChessBoardRep extends Board {
      */
     @Override
     public void makeMove(Move move) {
-        // makes sure the piece you are trying to move is your color
-        if (getTurn() != getPiece(getSquare(move.getStart())).getColor())
-            return;
-
         if (isValidMove(move)) {
-
+            move.setPiece(getPiece(getSquare(move.getStart())));
+            Piece piece = move.getPiece();
+            // makes sure the piece you are trying to move is your color
+            if (getTurn() != piece.getColor())
+                return;
             Piece King;
             int cl = -1;
             ArrayList<Piece> piecesChecking;
             ArrayList<Piece> piecesPinning;
-            Piece piece = getPiece(getSquare(move.getStart()));
             if (Color.WHITE == getTurn()) {
                 King = getPiece(KingWId);
                 piecesChecking = piecesCheckingBlack;
@@ -115,7 +117,6 @@ public class ChessBoardRep extends Board {
                 nextTurn();
                 piecesPinning.removeAll(piecesPinning);
                 // @todo if the king is moved new pieces become pinned need to find those
-                return;
             } else {
                 movePiece(move);
 
@@ -190,9 +191,16 @@ public class ChessBoardRep extends Board {
         } else
             //@todo throw an error?
             return;
+
+        addMove(move);
         // if we somehow make it through the brigade
         // clear the hashmap (dear god its O(n))
         validityOfMoves.clear();
+        // remove the enpassanted piece
+        if(enpassanted != null){
+             setSquare(enpassanted.getPosition(),0);
+             enpassanted = null;
+        }
 
 
     }
@@ -235,9 +243,22 @@ public class ChessBoardRep extends Board {
         //pawn capture case
         if (piece.isPawn())
             if (move.getDir()[1] != 0) {
-                if (getSquare(move.getEnd()) == 0) {
-                    validityOfMoves.put(move, false);
-                    return false;
+                if (getPiece(getSquare(move.getEnd())).isEmpty()) {
+                    Move lastMoveMade = getLastMoveMade();
+                    if(lastMoveMade.getPiece().isPawn()){
+                        if(abs(lastMoveMade.getStart()[0] - lastMoveMade.getEnd()[0])==2){
+                            // @todo I think this allows you to capture enpassant infront of the pawn
+                            if(!(abs(lastMoveMade.getEnd()[0]-move.getEnd()[0])==1 && lastMoveMade.getEnd()[1] == move.getEnd()[1])){
+                                validityOfMoves.put(move, false);
+                                return false;
+                            }else{
+                                enpassanted = lastMoveMade.getPiece();
+                            }
+                        }
+                    }else {
+                        validityOfMoves.put(move, false);
+                        return false;
+                    }
                 }
             } else if (getSquare(move.getEnd()) != 0) {
                 validityOfMoves.put(move, false);

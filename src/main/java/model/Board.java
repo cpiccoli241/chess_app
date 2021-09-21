@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class Board {
     /**
@@ -10,6 +12,7 @@ public abstract class Board {
     private int[][] boardRep;
     private HashMap<Integer, Piece> pieces = new HashMap<>();
     private Color turn;
+    private List<Move> movesMadeInGame = new ArrayList<>();
 
     /**
      * makes a move on the board
@@ -36,16 +39,21 @@ public abstract class Board {
     }
 
     /**
-     * Sets the board representation
-     * Used by subclasses to initialize
-     * the board state
+     * Adds a move to the list of moves made during the game
      *
-     * @param bdrep:: the state to set the board
+     * @param moveMade :: the move made
      */
-    protected void setBoardRep(int[][] bdrep) {
-        boardRep = bdrep;
+    protected void addMove(Move moveMade) {
+        movesMadeInGame.add(moveMade);
     }
 
+    /**
+     * Gets the last move made by opponent
+     * @return the last move made by opponent
+     */
+    protected Move getLastMoveMade(){
+        return movesMadeInGame.get(movesMadeInGame.size()-1);
+    }
     /**
      * Puts a piece in the piece hashmap
      *
@@ -68,7 +76,7 @@ public abstract class Board {
         return boardRep[index[0] - 1][index[1] - 1];
     }
 
-    private void setSquare(int[] index, int value) {
+    protected void setSquare(int[] index, int value) {
         boardRep[index[0] - 1][index[1] - 1] = value;
     }
 
@@ -82,6 +90,17 @@ public abstract class Board {
 
     public int[][] getBoardRep() {
         return boardRep;
+    }
+
+    /**
+     * Sets the board representation
+     * Used by subclasses to initialize
+     * the board state
+     *
+     * @param bdrep:: the state to set the board
+     */
+    protected void setBoardRep(int[][] bdrep) {
+        boardRep = bdrep;
     }
 
     protected Piece getPiece(int id) {

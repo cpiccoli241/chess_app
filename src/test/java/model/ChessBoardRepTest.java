@@ -88,6 +88,20 @@ public class ChessBoardRepTest {
         helper_test_move(bd,   "e5", "d4", 0, -14);
     }
     @Test
+    public void testEnPassant() {
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        //white moving pawn forward 2
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe2e4"));
+        //black moving pawn forward 2
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa7a5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe4e5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pd7d5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe5d6"));
+        helper_test_move(bd,   "e5", "d6", 0, 14);
+        helper_test_move(bd,   "d5", "d6", 0, 14);
+    }
+    @Test
     public void testMoveKnight(){
         ChessBoardRep bd = new ChessBoardRep();
          PGNConverter.setup();
