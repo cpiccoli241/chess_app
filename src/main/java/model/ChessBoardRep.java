@@ -19,6 +19,7 @@ public class ChessBoardRep extends Board {
     private ArrayList<Piece> piecesCheckingWhite = new ArrayList<>();
     private ArrayList<Piece> piecesPinningWhite = new ArrayList<>();
     private HashMap<Move, Boolean> validityOfMoves = new HashMap<>();
+    private Color winner = Color.BLANK;
 
     public ChessBoardRep() {
         setTurn(Color.WHITE);
@@ -359,16 +360,25 @@ public class ChessBoardRep extends Board {
      */
     public boolean endState() {
         if (canMakeValidMove()) {
-            // does not check pins,
             return false;
         }
         if (isInCheck()) {
+
             // set the winner
+            if (getTurn() == Color.WHITE)
+                winner = Color.BLACK;
+            else
+                winner = Color.WHITE;
+
             return true;
         } else {
             // tie oof.
             return true;
         }
+    }
+
+    public Color getWinner() {
+        return winner;
     }
 
     private boolean canMakeValidMove() {
