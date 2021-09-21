@@ -455,6 +455,36 @@ public class ChessBoardRepTest {
     }
     /*
      *
+     * Checking for Endgame states
+     *
+     */
+    @Test
+    public void testFoolsMate(){
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pf2f3"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe7e5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pg2g4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("qd8h4"));
+        assertTrue(bd.endState());
+        assertEquals(Color.BLACK, bd.getWinner());
+    }
+    @Test
+    public void testScholarsMate(){
+        ChessBoardRep bd = new ChessBoardRep();
+        PGNConverter.setup();
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe2e4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pe7e5"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("bf1c4"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("kb8c6"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("qd1f3"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("pa7a6"));
+        bd.makeMove(PGNConverter.convertFromPGNToMove("qf3f7"));
+        assertTrue(bd.endState());
+        assertEquals(Color.WHITE, bd.getWinner());
+    }
+    /*
+     *
      * Miscellaneous
      *
      */
