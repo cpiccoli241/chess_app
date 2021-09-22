@@ -14,7 +14,7 @@ import model.Rook;
 import java.util.HashMap;
 
 public class PGNConverter {
-    private static HashMap<Character, Integer> PGNConvert = new HashMap<>();
+    private static final HashMap<Character, Integer> PGNConvert = new HashMap<>();
 
     public static void setup() {
         addLetters();
