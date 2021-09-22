@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class King extends Piece {
-    private boolean hasmoved = false;
+    private final boolean hasmoved = false;
 
     public King(int id, Color col, int[] position) {
         super(id, col, position);

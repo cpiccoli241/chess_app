@@ -10,9 +10,9 @@ public abstract class Board {
      * for some game
      */
     private int[][] boardRep;
-    private HashMap<Integer, Piece> pieces = new HashMap<>();
+    private final HashMap<Integer, Piece> pieces = new HashMap<>();
     private Color turn;
-    private List<Move> movesMadeInGame = new ArrayList<>();
+    private final List<Move> movesMadeInGame = new ArrayList<>();
 
     /**
      * makes a move on the board
@@ -49,11 +49,13 @@ public abstract class Board {
 
     /**
      * Gets the last move made by opponent
+     *
      * @return the last move made by opponent
      */
-    protected Move getLastMoveMade(){
-        return movesMadeInGame.get(movesMadeInGame.size()-1);
+    protected Move getLastMoveMade() {
+        return movesMadeInGame.get(movesMadeInGame.size() - 1);
     }
+
     /**
      * Puts a piece in the piece hashmap
      *

@@ -16,11 +16,11 @@ public class ChessBoardRep extends Board {
     private boolean incheck = false;
     private boolean waitingOnPromotion = false;
     private Piece pieceToPromote;
-    private ArrayList<Piece> piecesCheckingBlack = new ArrayList<>();
-    private ArrayList<Piece> piecesPinningBlack = new ArrayList<>();
-    private ArrayList<Piece> piecesCheckingWhite = new ArrayList<>();
-    private ArrayList<Piece> piecesPinningWhite = new ArrayList<>();
-    private HashMap<Move, Boolean> validityOfMoves = new HashMap<>();
+    private final ArrayList<Piece> piecesCheckingBlack = new ArrayList<>();
+    private final ArrayList<Piece> piecesPinningBlack = new ArrayList<>();
+    private final ArrayList<Piece> piecesCheckingWhite = new ArrayList<>();
+    private final ArrayList<Piece> piecesPinningWhite = new ArrayList<>();
+    private final HashMap<Move, Boolean> validityOfMoves = new HashMap<>();
     private Color winner = Color.BLANK;
     private Piece enpassanted = null;
 
@@ -197,9 +197,9 @@ public class ChessBoardRep extends Board {
         // clear the hashmap (dear god its O(n))
         validityOfMoves.clear();
         // remove the enpassanted piece
-        if(enpassanted != null){
-             setSquare(enpassanted.getPosition(),0);
-             enpassanted = null;
+        if (enpassanted != null) {
+            setSquare(enpassanted.getPosition(), 0);
+            enpassanted = null;
         }
 
 
@@ -245,17 +245,17 @@ public class ChessBoardRep extends Board {
             if (move.getDir()[1] != 0) {
                 if (getPiece(getSquare(move.getEnd())).isEmpty()) {
                     Move lastMoveMade = getLastMoveMade();
-                    if(lastMoveMade.getPiece().isPawn()){
-                        if(abs(lastMoveMade.getStart()[0] - lastMoveMade.getEnd()[0])==2){
+                    if (lastMoveMade.getPiece().isPawn()) {
+                        if (abs(lastMoveMade.getStart()[0] - lastMoveMade.getEnd()[0]) == 2) {
                             // @todo I think this allows you to capture enpassant infront of the pawn
-                            if(!(abs(lastMoveMade.getEnd()[0]-move.getEnd()[0])==1 && lastMoveMade.getEnd()[1] == move.getEnd()[1])){
+                            if (!(abs(lastMoveMade.getEnd()[0] - move.getEnd()[0]) == 1 && lastMoveMade.getEnd()[1] == move.getEnd()[1])) {
                                 validityOfMoves.put(move, false);
                                 return false;
-                            }else{
+                            } else {
                                 enpassanted = lastMoveMade.getPiece();
                             }
                         }
-                    }else {
+                    } else {
                         validityOfMoves.put(move, false);
                         return false;
                     }
@@ -487,7 +487,7 @@ public class ChessBoardRep extends Board {
             for (int square : row) {
                 output = output + "| " + getPiece(square).toString() + " ";
             }
-            output = output + "|| " + counter.toString() + " |\n";
+            output = output + "|| " + counter + " |\n";
             counter++;
         }
         output = output + "- - - - - - - - - - - - - - - - - - -\n";
@@ -502,7 +502,7 @@ public class ChessBoardRep extends Board {
      * @return A string representing the locations of all the pieces from blacks perspective
      */
     public String WhitePerspective() {
-        return new StringBuilder().append(BlackPerspective()).reverse().toString() + "\n";
+        return new StringBuilder().append(BlackPerspective()).reverse() + "\n";
     }
 
     /**

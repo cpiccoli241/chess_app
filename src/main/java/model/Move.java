@@ -6,7 +6,7 @@ import static java.lang.Math.abs;
 
 public class Move {
     private int[] start = new int[2];
-    private int[] end = new int[2];
+    private final int[] end = new int[2];
     private int[] dir = new int[2];
     private Piece tomove;
 
@@ -63,11 +63,11 @@ public class Move {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Move) {
+        if (o instanceof Move) {
             Move other = (Move) o;
             return end[0] == other.end[0] && end[1] == other.end[1] &&
                     start[1] == other.start[1] && start[0] == other.start[0];
-        } else{
+        } else {
             return false;
         }
     }
@@ -79,10 +79,12 @@ public class Move {
     public Move reverse() {
         return Move.MoveEndStart(end, start, tomove);
     }
-    public Piece getPiece(){
+
+    public Piece getPiece() {
         return tomove;
     }
-    public void setPiece(Piece piece){
+
+    public void setPiece(Piece piece) {
         tomove = piece;
     }
 }

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Rook extends Piece {
-    private boolean hasmoved = false;
+    private final boolean hasmoved = false;
 
     public Rook(int id, Color col) {
         super(id, col);

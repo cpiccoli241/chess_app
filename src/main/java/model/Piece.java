@@ -9,8 +9,8 @@ public abstract class Piece {
      * Contains Information for Subclasses
      * (duh)
      */
-    private int pieceID;
-    private Color col;
+    private final int pieceID;
+    private final Color col;
     private int[] position;
 
     public Piece(int id, Color col) {

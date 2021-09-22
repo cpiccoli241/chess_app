@@ -6,19 +6,20 @@ import java.util.Scanner;
 
 public class CMDChessApp {
     private static boolean setup = false;
-    public CMDChessApp(){
-        if(!setup) {
+
+    public CMDChessApp() {
+        if (!setup) {
             PGNConverter.addLetters();
             setup = true;
         }
 
     }
 
-    public static void takeTurn(Scanner scin, ChessBoardRep bd){
-        if(bd.isInCheck()){
+    public static void takeTurn(Scanner scin, ChessBoardRep bd) {
+        if (bd.isInCheck()) {
             System.out.println("Check");
         }
-        if(bd.getTurn() == Color.WHITE)
+        if (bd.getTurn() == Color.WHITE)
             System.out.println("White Players Move!");
         else
             System.out.println("Black Players Move!");
@@ -35,16 +36,16 @@ public class CMDChessApp {
         while (!gameBoard.endState()) {
             System.out.print(gameBoard.WhitePerspective());
             takeTurn(sc, gameBoard);
-            while(gameBoard.isWaitingOnPromotion()){
+            while (gameBoard.isWaitingOnPromotion()) {
                 System.out.println("Enter Q, B, N, R: ");
                 String input = sc.nextLine();
                 gameBoard.promotePiece(input);
             }
         }
         System.out.println("Checkmate!!!");
-        if(Color.WHITE==gameBoard.getTurn()){
+        if (Color.WHITE == gameBoard.getTurn()) {
             System.out.println("Black Wins!");
-        }else{
+        } else {
             System.out.println("White Wins!");
         }
     }

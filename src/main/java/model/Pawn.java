@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Pawn extends Piece {
     private boolean hasMoved = false;
-    private int direction;
+    private final int direction;
 
     public Pawn(int id, Color col) {
         super(id, col);
